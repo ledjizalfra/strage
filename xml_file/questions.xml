@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE test SYSTEM "test.dtd">
+<questions>
+
+    <question>
+        <text>quale e' il compito di un driver?</text>
+        <item correct='true'>tradurre comandi generici validi per un qualsiasi dispositivo (di un certo tipo) in comandi specifici indirizzati a un determinato dispositivo</item>
+        <item>tradurre comandi specifici indirizzati a un determinato dispositivo in comandi generici validi per un qualsiasi dispositivo (di un certo tipo)</item>
+        <item>permettere ad un programma scritto per un dispostivo specifico di utilizzare un dispositivo generico</item>
+        <item>permettere a più processi contemporaneamente attivi di utilizzare uno stesso dispositivo di input/output</item>
+        <item>evitare che più processi contemporaneamente attivi desiderino utilizzare un medesimo dispositivo</item>
+    </question>
+
+	<question>
+		<text>Quale registro della CPU memorizza il codice operativo dell'istruzione da eseguire?</text>
+		<item correct="true">IR</item>
+		<item>AR</item>
+		<item>DR</item>
+		<item>PC</item>
+		<item>ALU</item>
+		<item>CU</item>
+		<item>SR</item>
+		<item>SP</item>
+	</question>
+	
+	<question>
+		<text>Quale registro della CPU memorizza lo stato del processore successivo all'ultima operazione?</text>
+		<item correct="true">SR</item>
+		<item>AR</item>
+		<item>DR</item>
+		<item>PC</item>
+		<item>ALU</item>
+		<item>CU</item>
+		<item>IR</item>
+		<item>SP</item>
+	</question>
+	
+	<question>
+		<text>Quale registro della CPU contiene l'indirizzo della prossima istruzione da eseguire?</text>
+		<item correct="true">PC</item>
+		<item>AR</item>
+		<item>DR</item>
+		<item>IR</item>
+		<item>ALU</item>
+		<item>CU</item>
+		<item>SR</item>
+		<item>SP</item>
+	</question>
+  
+	<question>
+		<text>Quale blocco interno alla CPU coordina e gestisce le operazioni interne?</text>
+		<item correct="true">Control Unit</item>
+		<item>ALU</item>
+		<item>Cache</item>
+		<item>Memory Interface</item>
+		<item>Data Bus</item>
+		<item>Control Bus</item>
+		<item>Address Bus</item>
+	</question>
+	
+	<question>
+		<text>Quando parliamo di architettura a 64 Bit, generalmente indichiamo:</text>
+		<item correct="true">i registri del processore da 64 bit</item>
+		<item>la frequenza di funzionamento della CPU</item>
+		<item>la capacità della ALU</item>
+		<item>la dimensione della ROM, che contiene la tabella dei codici ASCII</item>
+		<item>la capacità dell'unità di controllo</item>
+	</question>
+	
+	<question>
+		<text>Con quale tra le seguenti combinazioni un computer NON può funzionare?</text>
+		<item correct="true">Processore a 32 bit e sistema operativo a 64 bit</item>
+		<item>Processore a 32 bit e sistema operativo a 32 bit</item>
+		<item>Processore a 64 bit e sistema operativo a 32 bit</item>
+		<item>Processore a 64 bit e sistema operativo a 64 bit</item>
+		<item>Processore a 32 bit e sistema operativo a 16 bit</item>
+		<item>Processore a 16 bit e sistema operativo a 16 bit</item>
+	</question>
+	
+	<question>
+		<text>Quale tra le seguenti configurazioni NON permette la compatibilità tra componenti?</text>
+		<item correct="true">Processore 64 bit, Sistema operativo 32 bit, Software Applicativo 64 bit</item>
+		<item>Processore 64 bit, Sistema operativo 64 bit, Software Applicativo 32 bit</item>
+		<item>Processore 64 bit, Sistema operativo 32 bit, Software Applicativo 32 bit</item>
+		<item>Processore 64 bit, Sistema operativo 64 bit, Software Applicativo 64 bit</item>
+		<item>Processore 32 bit, Sistema operativo 64 bit, Software Applicativo 64 bit</item>
+		<item>Processore 32 bit, Sistema operativo 32 bit, Software Applicativo 64 bit</item>
+	</question>
+	
+	<question>
+		<text>In quale fase del ciclo macchina avviene la lettura dell'istruzione da memoria?</text>
+		<item correct="true">Fetch</item>
+		<item>Decode</item>
+		<item>Execution</item>
+		<item>Memory</item>
+		<item>Write Back</item>
+	</question>
+	
+	<question>
+		<text>In quale fase del ciclo macchina avviene la decodifica dell'istruzione e la lettura degli operandi dai registri?</text>
+		<item correct="true">Decode</item>
+		<item>Fetch</item>
+		<item>Execution</item>
+		<item>Memory</item>
+		<item>Write Back</item>
+	</question>
+	
+	<question>
+		<text>In quale fase del ciclo macchina avviene l'esecuzione dell'istruzione?</text>
+		<item correct="true">Execution</item>
+		<item>Fetch</item>
+		<item>Decode</item>
+		<item>Memory</item>
+		<item>Write Back</item>
+	</question>
+	
+	<question>
+		<text>In quale fase del ciclo macchina avviene la scrittura del risultato in memoria (solo per certe istruzioni)?</text>
+		<item correct="true">Memory</item>
+		<item>Fetch</item>
+		<item>Decode</item>
+		<item>Execution</item>
+		<item>Write Back</item>
+	</question>
+	
+	<question>
+		<text>In quale fase del ciclo macchina avviene la scrittura del risultato nel registro opportuno e avviene l'aggiornamento dello stato?</text>
+		<item correct="true">Write Back</item>
+		<item>Fetch</item>
+		<item>Decode</item>
+		<item>Execution</item>
+		<item>Memory</item>
+	</question>
+	
+	<question>
+		<text>Il pipeling è una tecnica che:</text>
+		<item correct="true">consente di elaborare in parallelo più istruzioni</item>
+		<item>consente di elaborare in seriale più istruzioni</item>
+		<item>consente di prelevare dalla memoria più dati in parallelo</item>
+		<item>consente di prelevare dalla memoria più dati in seriale</item>
+		<item>consente di scrivere nei registri più dati in parallelo</item>
+		<item>consente di scrivere nei registri più dati in seriale</item>
+	</question>
+	
+	 <question>
+		<text>Con la tecnologia superscalare</text>
+		<item correct="true">vengono integrati in un unico microprocessore più pipeline che funzionano in parallelo</item>
+		<item>vengono integrati in un unico microprocessore più pipeline che funzionano in seriale</item>
+		<item>vengono integrati in più microprocessori che funzionano in parallelo una pipeline</item>
+		<item>vengono integrati in più microprocessori che funzionano in seriale una pipeline</item>
+		<item>vengono integrati in più microprocessore più pipeline che funzionano in seriale</item>
+		<item>vengono integrati in più microprocessore più pipeline che funzionano in parallelo</item>
+	 </question>
+	 
+	 <question>
+		<text>In che forma viene rappresentata ogni istruzione macchina?</text>
+		<item correct="true">una sequenza di bit opportunamente formattata</item>
+		<item>una sequenza casuale di bit</item>
+		<item>una sequenza di registri</item>
+		<item>una sequenza di bus</item>
+		<item>una sequenza casuale di registri</item>
+	 </question>
+	 
+	<question>
+		<text>Che cos'è l'ISA?</text>
+		<item correct="true">è la parte di architettura che è visibile al programmatore</item>
+		<item>è la parte di architettura che NON è visibile al programmatore</item>
+		<item>è l'insieme di tutti i registri di una CPU</item>
+		<item>è l'acronimo di Instruction Setting Architecture</item>
+		<item>è il socket dove si va ad installare la CPU multicore</item>
+	</question>
+  
+	<question>
+		<text>Con quale architettura si creano tante istruzioni diverse, anche molto complesse, una per ogni possibile istruzione che la CPU deve compiere?</text>
+		<item correct="true">CISC</item>
+		<item>RISC</item>
+		<item>ISA</item>
+		<item>Superscalare</item>
+		<item>Multicore</item>
+	</question>
+  
+	<question>
+		<text>Con quale architettura si riduce al minimo l'insieme delle istruzioni, selezionando quelle indispensabili e di uso più frequenti nei programmi?</text>
+		<item correct="true">RISC</item>
+		<item>CISC</item>
+		<item>ISA</item>
+		<item>Superscalare</item>
+		<item>Multicore</item>
+	</question>
+  
+	<question>
+		<text>Dal punto di vista del microprocessore cosa sono i benchmarks?</text>
+		<item correct="true">programmi appositamente studiati per misurare la velocità di elaborazione</item>
+		<item>gli opcode disponibili nel linguaggio macchina di uno specifico processore</item>
+		<item>un'architettura con la quale si riduce al minimo l'insieme delle istruzioni, selezionando quelle indispensabili e di uso più frequenti nei programmi</item>
+		<item>un'architettura si creano tante istruzioni diverse, anche molto complesse, una per ogni possibile istruzione che la CPU deve compiere</item>
+		<item>è la parte di architettura che è visibile al programmatore</item>
+	</question>
+  
+	<question>
+		<text>L'indirizzo della cella iniziale, a partire dalla quale è stato caricato in memoria centrale il blocco di codice da eseguire è chiamato:</text>
+		<item correct="true">Base Address</item>
+		<item>Offset</item>
+		<item>Displacement</item>
+		<item>Start Address</item>
+		<item>Begin Address</item>
+	</question>
+  
+	<question>
+		<text>Come viene definito lo spostamento rispetto all'effective address?</text>
+		<item correct="true">Displacement</item>
+		<item>Offset</item>
+		<item>Movement</item>
+		<item>Immediato</item>
+		<item>Diretto</item>
+		<item>Indiretto</item>
+	</question>
+  
+	<question>
+		<text>Base address + offset =</text>
+		<item correct="true">Effective address</item>
+		<item>Displacement</item>
+		<item>Accumulator</item>
+		<item>Destination address</item>
+		<item>Final address</item>
+	</question>
+  
+	<question>
+		<text>Quale istruzione assembly serve a spostare dati da memoria a CPU e viceversa?</text>
+		<item correct="true">MOV</item>
+		<item>AX</item>
+		<item>BX</item>
+		<item>Offset</item>
+		<item>DI</item>
+	</question>
+  
+	<question>
+		<text>Come viene definito il metodo di indirizzamento in cui nell'istruzione c'è il dato?</text>
+		<item correct="true">Immediato</item>
+		<item>Differito</item>
+		<item>Diretto</item>
+		<item>Indiretto</item>
+		<item>Proprio</item>
+		<item>Improrio</item>
+	</question>
+  
+	<question>
+		<text>Come viene definito il metodo di indirizzamento in cui nell'istruzione c'è l'indirizzo di memoria o il registro in cui si trova il dato?</text>
+		<item correct="true">Diretto</item>
+		<item>Differito</item>
+		<item>Immediato</item>
+		<item>Indiretto</item>
+		<item>Proprio</item>
+		<item>Improrio</item>
+	</question>
+  
+	<question>
+		<text>Come viene definito il metodo di indirizzamento in cui nell'istruzione c'è l'indirizzo di memoria o il registro dove si trova l'indirizzo di memoria in cui c'è il dato?</text>
+		<item correct="true">Indiretto</item>
+		<item>Differito</item>
+		<item>Immediato</item>
+		<item>Diretto</item>
+		<item>Proprio</item>
+		<item>Improrio</item>
+	</question>
+  
+	<question>
+		<text>Nei microprocessori Intel X86 l'istruzione MOV AX,4Dh è un esempio di:</text>
+		<item correct="true">Indirizzamento immediato</item>
+		<item>Indirizzamento diretto registro a registro</item>
+		<item>Indirizzamento diretto da registro a memoria e viceversa</item>
+		<item>Indirizzamento indiretto tramite registro</item>
+		<item>Indirizzamento indiretto tramite registro e displacement</item>
+		<item>Indirizzamento indiretto tramite registri e indice</item>
+		<item>Indirizzamento indiretto tramite registro base, indice e displacement</item>
+	</question>
+  
+	<question>
+		<text>Nei microprocessori Intel X86 l'istruzione MOV AX,BX è un esempio di:</text>
+		<item correct="true">Indirizzamento diretto registro a registro</item>
+		<item>Indirizzamento immediato</item>
+		<item>Indirizzamento diretto da registro a memoria e viceversa</item>
+		<item>Indirizzamento indiretto tramite registro</item>
+		<item>Indirizzamento indiretto tramite registro e displacement</item>
+		<item>Indirizzamento indiretto tramite registri e indice</item>
+		<item>Indirizzamento indiretto tramite registro base, indice e displacement</item>
+	</question>
+  
+	<question>
+		<text>Nei microprocessori Intel X86 l'istruzione MOV AX,[6Ah] è un esempio di:</text>
+		<item correct="true">Indirizzamento diretto da registro a memoria e viceversa</item>
+		<item>Indirizzamento immediato</item>
+		<item>Indirizzamento diretto registro a registro</item>
+		<item>Indirizzamento indiretto tramite registro</item>
+		<item>Indirizzamento indiretto tramite registro e displacement</item>
+		<item>Indirizzamento indiretto tramite registri e indice</item>
+		<item>Indirizzamento indiretto tramite registro base, indice e displacement</item>
+	</question>
+  
+	<question>
+		<text>Nei microprocessori Intel X86 l'istruzione MOV BX,[AX] è un esempio di:</text>
+		<item correct="true">Indirizzamento indiretto tramite registro</item>
+		<item>Indirizzamento immediato</item>
+		<item>Indirizzamento diretto da registro a memoria e viceversa</item>
+		<item>Indirizzamento diretto registro a registro</item>
+		<item>Indirizzamento indiretto tramite registro e displacement</item>
+		<item>Indirizzamento indiretto tramite registri e indice</item>
+		<item>Indirizzamento indiretto tramite registro base, indice e displacement</item>
+	</question>
+  
+	<question>
+		<text>Nei microprocessori Intel X86 l'istruzione MOV BX,[SI][AX] è un esempio di:</text>
+		<item correct="true">Indirizzamento indiretto tramite registri e indice</item>
+		<item>Indirizzamento diretto registro a registro</item>
+		<item>Indirizzamento diretto da registro a memoria e viceversa</item>
+		<item>Indirizzamento indiretto tramite registro</item>
+		<item>Indirizzamento immediato</item>
+		<item>Indirizzamento indiretto tramite registro e displacement</item>
+		<item>Indirizzamento indiretto tramite registro base, indice e displacement</item>
+	</question>
+  
+	<question>
+		<text>Nei microprocessori Intel X86 l'istruzione MOV AX,02[BX][SI] è un esempio di:</text>
+		<item correct="true">Indirizzamento indiretto tramite registro base, indice e displacement</item>
+		<item>Indirizzamento diretto registro a registro</item>
+		<item>Indirizzamento diretto da registro a memoria e viceversa</item>
+		<item>Indirizzamento indiretto tramite registro</item>
+		<item>Indirizzamento immediato</item>
+		<item>Indirizzamento indiretto tramite registro e displacement</item>
+		<item>Indirizzamento indiretto tramite registri e indice</item>
+	</question>
+  
+	<question>
+		<text>Il supporto su cui è creato il processore è chiamato</text>
+		<item correct="true">Die</item>
+		<item>Queue</item>
+		<item>Core</item>
+		<item>Uncore</item>
+		<item>Microcontrollore</item>
+	</question>
+  
+	<question>
+		<text>La coda dei processi in attesa di elaborazione è chiamata</text>
+		<item correct="true">Queue</item>
+		<item>Die</item>
+		<item>Core</item>
+		<item>Uncore</item>
+		<item>Microcontrollore</item>
+	</question>
+  
+	<question>
+		<text>Il numero di CPU indipendenti, presenti in un unico dispositivo integrato, è chiamato</text>
+		<item correct="true">Core</item>
+		<item>Die</item>
+		<item>Queue</item>
+		<item>Uncore</item>
+		<item>Microcontrollore</item>
+	</question>
+  
+	<question>
+		<text>Tutte le caratteristiche che non sono costruite nel processore, ma che sono essenziali per il suo funzionamento, sono definite come</text>
+		<item correct="true">Uncore</item>
+		<item>Die</item>
+		<item>Queue</item>
+		<item>Core</item>
+    <item>Microcontrollore</item>
+  </question>
+</questions>

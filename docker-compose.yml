@@ -1,0 +1,64 @@
+version: '3'
+
+networks:
+  strage_network:
+    driver: bridge
+  
+volumes:
+  mysql_data:
+    driver: local
+
+services:
+  ###################################
+  #            DATA BASE            #
+  ###################################
+  mysql-db:
+    image: mysql
+    container_name: strage-database
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: strage
+      MYSQL_PASSWORD: strage
+      TZ: Europe/Rome
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3305:3306
+    networks:
+      - strage_network
+      
+  ###################################
+  #            QUIZ APP             #
+  ###################################
+  # quiz-backend:
+    # container_name: quiz-backend-container
+    # restart: on-failure
+    # build:
+      # context: ./
+      # dockerfile: Dockerfile-quiz-backend
+    # environment:
+      # SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/quiz_db?createDatabaseIfNotExist=true&autoReconnect=true&useSLL=false&useLegacyDatetimeCode=false
+      # SPRING_DATASOURCE_USERNAME: quiz
+      # SPRING_DATASOURCE_PASSWORD: quiz
+      # WAIT_HOSTS: mysql-db:3306
+    # expose:
+      # - 8888
+    # ports:
+      # - 8888:8888      
+    # networks:
+      # - quiz_network
+    # depends_on:
+      # - mysql-db
+      
+  # quiz-frontend:
+    # container_name: quiz-frontend-container
+    # restart: on-failure
+    # build:
+      # context: ./
+      # dockerfile: Dockerfile-quiz-frontend
+    # volumes: # Volume binding
+        # - './quiz-frontend:/usr/src/app'
+    # ports: 
+        # - '4200:4200' # Port mapping  

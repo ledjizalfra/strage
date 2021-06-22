@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>	
+<question>
+	<text>Quale registro della CPU memorizza lo stato del processore successivo all'ultima operazione?</text>
+	<item correct="true">SR</item>
+	<item>AR</item>
+	<item>DR</item>
+	<item>PC</item>
+	<item>ALU</item>
+	<item>CU</item>
+	<item>IR</item>
+	<item>SP</item>
+</question>
