@@ -2,6 +2,7 @@ package it.buniva.strage.controller;
 
 import it.buniva.strage.api.ApiResponseCustom;
 import it.buniva.strage.entity.Admin;
+import it.buniva.strage.event.UserAddedSuccessfullyEvent;
 import it.buniva.strage.exception.admin.AdminExceptionHandling;
 import it.buniva.strage.exception.admin.AdminNotFoundException;
 import it.buniva.strage.exception.admin.EmptyAdminListException;
@@ -14,6 +15,7 @@ import it.buniva.strage.payload.request.PersonalDataRequest;
 import it.buniva.strage.payload.response.AdminResponse;
 import it.buniva.strage.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +34,9 @@ public class AdminController extends AdminExceptionHandling {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private ApplicationEventPublisher publisher;
+
 
     // ============================= CREATE ===============================
     @PostMapping(value = "/register-admin")
@@ -43,6 +48,9 @@ public class AdminController extends AdminExceptionHandling {
             AdminNotFoundException, DuplicatePersonalDataException, MessagingException {
 
         Admin admin = adminService.registerAdmin(adminRequest);
+
+        // Publish an event to notifier the send mail Scheduling that it can start sending mail
+        publisher.publishEvent(new UserAddedSuccessfullyEvent(this, true));
 
         return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 201,
                 HttpStatus.CREATED, "", AdminResponse.createFromAdmin(admin), request.getRequestURI()),

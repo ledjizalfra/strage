@@ -30,7 +30,7 @@ public class PwdResetToken implements Serializable {
     private boolean activated;
 
     @OneToOne(targetEntity = User.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false, name = "USER_ID", foreignKey = @ForeignKey(name = "FK_PWD_RESET_TOKEN_USER"))
+    @JoinColumn(nullable = false, name = "USER_ID", foreignKey = @ForeignKey(name = "FK_USER_IN_PWD_RESET_TOKEN"))
     private User user;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Europe/Rome")

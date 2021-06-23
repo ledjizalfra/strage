@@ -2,6 +2,7 @@ package it.buniva.strage.controller;
 
 import it.buniva.strage.api.ApiResponseCustom;
 import it.buniva.strage.entity.Professor;
+import it.buniva.strage.event.UserAddedSuccessfullyEvent;
 import it.buniva.strage.exception.admin.AdminNotFoundException;
 import it.buniva.strage.exception.professor.EmptyProfessorListException;
 import it.buniva.strage.exception.professor.ProfessorExceptionHandling;
@@ -16,6 +17,7 @@ import it.buniva.strage.payload.request.ProfessorRequest;
 import it.buniva.strage.payload.response.ProfessorResponse;
 import it.buniva.strage.service.ProfessorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -35,6 +37,9 @@ public class ProfessorController extends ProfessorExceptionHandling {
     @Autowired
     private ProfessorService professorService;
 
+    @Autowired
+    private ApplicationEventPublisher publisher;
+
 
     // ============================= CREATE ===============================
     @PostMapping(value = "/register-professor")
@@ -46,6 +51,9 @@ public class ProfessorController extends ProfessorExceptionHandling {
             RoleNotFoundException, DuplicatePersonalDataException, MessagingException {
 
         Professor professor = professorService.registerProfessor(professorRequest);
+
+        // Publish an event to notifier the send mail Scheduling that it can start sending mail
+        publisher.publishEvent(new UserAddedSuccessfullyEvent(this, true));
 
         return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 201,
                 HttpStatus.CREATED, "", ProfessorResponse.createFromProfessor(professor), request.getRequestURI()),

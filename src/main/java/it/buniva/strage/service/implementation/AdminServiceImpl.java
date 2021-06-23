@@ -7,6 +7,7 @@ import it.buniva.strage.entity.User;
 import it.buniva.strage.entity.compositeatributte.PersonalData;
 import it.buniva.strage.enumaration.MailObject;
 import it.buniva.strage.enumaration.RoleName;
+import it.buniva.strage.event.SendMailEvent;
 import it.buniva.strage.exception.admin.AdminNotFoundException;
 import it.buniva.strage.exception.admin.EmptyAdminListException;
 import it.buniva.strage.exception.role.RoleNotFoundException;
@@ -20,6 +21,7 @@ import it.buniva.strage.service.MailService;
 import it.buniva.strage.service.UserService;
 import it.buniva.strage.utility.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,6 +44,9 @@ public class AdminServiceImpl implements AdminService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
 
 
@@ -75,12 +80,16 @@ public class AdminServiceImpl implements AdminService {
         // Create a new admin and save in DB
         Admin newAdmin = createNewAdmin(adminRequest, newUser, personalData);
 
-        // TODO... Send mail to the new user
-        mailService.sendEmail(SendMailRequest.createFromAdmin(
+        // Prepare the sendMailRequest
+        SendMailRequest sendMailRequest = SendMailRequest.createFromAdmin(
                 newAdmin,
                 MailObject.CREDENTIALS_MAIL,
                 password
-        ));
+        );
+
+        // Publish an event, the listener would get it an send the mail to the user
+        // we send the email:username and password
+        publisher.publishEvent(new SendMailEvent(this, sendMailRequest));
 
         return getAdminByIdAndEnabledTrueAndDeletedFalse(newAdmin.getId());
     }

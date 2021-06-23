@@ -8,13 +8,13 @@ function pause(){
 git add .
 
 #@echo "adding url of distant repository"
-git remote add myorigin https://rentalfilm72@github.com/rentalfilms72/stage-ecommerce.git
+ git remote add origin https://ledjizalfra@github.com/ledjizalfra/strage.git
 
 #@echo "Our first commit..."
 git commit -m "UPDATE"
 
 #@echo "pushing..."
-git push -u myorigin master
+git push -u origin master
 
 echo ""
 echo ""

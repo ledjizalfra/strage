@@ -7,6 +7,7 @@ import it.buniva.strage.entity.User;
 import it.buniva.strage.entity.compositeatributte.PersonalData;
 import it.buniva.strage.enumaration.MailObject;
 import it.buniva.strage.enumaration.RoleName;
+import it.buniva.strage.event.SendMailEvent;
 import it.buniva.strage.exception.professor.EmptyProfessorListException;
 import it.buniva.strage.exception.professor.ProfessorNotFoundException;
 import it.buniva.strage.exception.role.RoleNotFoundException;
@@ -23,6 +24,7 @@ import it.buniva.strage.service.ProfessorService;
 import it.buniva.strage.service.UserService;
 import it.buniva.strage.utility.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -45,6 +47,9 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private ApplicationEventPublisher publisher;
 
     // ===================================================================
     // ======================== IMPLEMENTATIONS ==========================
@@ -75,12 +80,16 @@ public class ProfessorServiceImpl implements ProfessorService {
         // Create a new professor and save in DB
         Professor newProfessor = createNewProfessor(professorRequest, newUser, personalData);
 
-        // TODO... Send mail to the new user
-        mailService.sendEmail(SendMailRequest.createFromProfessor(
+        // Prepare the sendMailRequest
+        SendMailRequest sendMailRequest = SendMailRequest.createFromProfessor(
                 newProfessor,
                 MailObject.CREDENTIALS_MAIL,
                 password
-        ));
+        );
+
+        // Publish an event, the listener would get it an send the mail to the user
+        // we send the email:username and password
+        publisher.publishEvent(new SendMailEvent(this, sendMailRequest));
 
         return getProfessorByIdAndEnabledTrueAndDeletedFalse(newProfessor.getId());
     }

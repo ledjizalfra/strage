@@ -35,7 +35,7 @@ public class Role implements Serializable {
     // ============= MAPPING WITH OTHER TABLES =================
     @ManyToMany
     @JoinTable(name="ROLE_PERMISSIONS",
-            joinColumns = {@JoinColumn(name="ROLE_ID", referencedColumnName="ROLE_ID")},
-            inverseJoinColumns = {@JoinColumn(name="PERMISSION_ID", referencedColumnName="PERMISSION_ID")})
+            joinColumns = {@JoinColumn(name="ROLE_ID", referencedColumnName="ROLE_ID", foreignKey = @ForeignKey(name = "FK_ROLE_IN_ROLE_PERMISSION"))},
+            inverseJoinColumns = {@JoinColumn(name="PERMISSION_ID", referencedColumnName="PERMISSION_ID", foreignKey = @ForeignKey(name = "FK_PERMISSION_IN_ROLE_PERMISSION"))})
     private Set<Permission> permissionSet;
 }

@@ -1,12 +1,16 @@
 package it.buniva.strage.service.implementation;
 
+import it.buniva.strage.constant.ClassroomConstant;
 import it.buniva.strage.constant.StudentConstant;
 import it.buniva.strage.constant.UserConstant;
+import it.buniva.strage.entity.Classroom;
 import it.buniva.strage.entity.Student;
 import it.buniva.strage.entity.User;
 import it.buniva.strage.entity.compositeatributte.PersonalData;
 import it.buniva.strage.enumaration.MailObject;
 import it.buniva.strage.enumaration.RoleName;
+import it.buniva.strage.event.SendMailEvent;
+import it.buniva.strage.exception.classroom.ClassroomNotFoundException;
 import it.buniva.strage.exception.csvfile.*;
 import it.buniva.strage.exception.role.RoleNotFoundException;
 import it.buniva.strage.exception.student.DuplicatePersonalDataException;
@@ -19,17 +23,23 @@ import it.buniva.strage.payload.request.SendMailRequest;
 import it.buniva.strage.payload.request.StudentRequest;
 import it.buniva.strage.payload.request.UserRequest;
 import it.buniva.strage.repository.StudentRepository;
+import it.buniva.strage.service.ClassroomService;
 import it.buniva.strage.service.MailService;
 import it.buniva.strage.service.StudentService;
 import it.buniva.strage.service.UserService;
 import it.buniva.strage.utility.PasswordUtils;
 import it.buniva.strage.utility.csvfile.ApacheCommonsCsvUtil;
 import it.buniva.strage.utility.csvfile.StudentCSV;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.IllegalWriteException;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +49,8 @@ import java.util.List;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class StudentServiceImpl implements StudentService {
+
+    private final Logger LOGGER = LoggerFactory.getLogger(getClass());
 
     @Autowired
     private StudentRepository studentRepository;
@@ -52,6 +64,12 @@ public class StudentServiceImpl implements StudentService {
     @Autowired
     private MailService mailService;
 
+    @Autowired
+    private ClassroomService classroomService;
+
+    @Autowired
+    private ApplicationEventPublisher publisher;
+
 
     // ===================================================================
     // ======================== IMPLEMENTATIONS ==========================
@@ -61,7 +79,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student registerStudent(StudentRequest studentRequest)
             throws DuplicateUsernameException, UserNotFoundException, RoleNotFoundException,
-            StudentNotFoundException, DuplicatePersonalDataException, MessagingException {
+            StudentNotFoundException, DuplicatePersonalDataException, MessagingException, ClassroomNotFoundException {
 
         PersonalData personalData = new PersonalData(
                 studentRequest.getEmail(),
@@ -69,8 +87,13 @@ public class StudentServiceImpl implements StudentService {
                 studentRequest.getSurname()
         );
 
-        // Throw an exception if exist
+        // Throw an exception if exist a student with the same personalData
         existsAlreadyStudentByPersonalData(personalData);
+
+        // Control if the classroom exist, throw exception if not exist
+        Classroom classroom =
+                classroomService.getClassroomByNameAndEnabledTrueAndDeletedFalse(
+                        studentRequest.getClassroomName());
 
         // Generate the password
         String password = passwordUtils.generatePassword(UserConstant.LENGTH_PASSWORD_GENERATED);
@@ -83,14 +106,18 @@ public class StudentServiceImpl implements StudentService {
         ));
 
         // Create a new student and save in DB
-        Student newStudent = createNewStudent(studentRequest, newUser, personalData);
+        Student newStudent = createNewStudent(studentRequest, newUser, personalData, classroom);
 
-        // TODO... Send mail to the new user
-        mailService.sendEmail(SendMailRequest.createFromStudent(
+        // Prepare the sendMailRequest
+        SendMailRequest sendMailRequest = SendMailRequest.createFromStudent(
                 newStudent,
                 MailObject.CREDENTIALS_MAIL,
                 password
-        ));
+        );
+
+        // Publish an event, the listener would get it an send the mail to the user
+        // we send the email:username and password
+        publisher.publishEvent(new SendMailEvent(this, sendMailRequest));
 
         return getStudentByIdAndEnabledTrueAndDeletedFalse(newStudent.getId());
     }
@@ -104,7 +131,14 @@ public class StudentServiceImpl implements StudentService {
             CSVInconsistentRecordException, CSVNameFormatException, TypeFileNotCorrectException,
             InvalidNumberHeaderFieldException, UserNotFoundException, MessagingException,
             DuplicateUsernameException, RoleNotFoundException, StudentNotFoundException,
-            DuplicatePersonalDataException {
+            DuplicatePersonalDataException, ClassroomNotFoundException {
+
+//        LOGGER.info("CLASSROOM NAME: " + classroomName);
+
+        // Check if the classroom param is not null
+        if(!StringUtils.isNotBlank(classroomName)) {
+            throw new IllegalArgumentException(ClassroomConstant.ILLEGAL_ARGUMENT_CLASSROOM_NAME_MSG);
+        }
 
         // Read the content of csv file
         List<StudentCSV> studentCSVList = ApacheCommonsCsvUtil.readFromCSVFile(csvFile);
@@ -117,7 +151,7 @@ public class StudentServiceImpl implements StudentService {
             StudentRequest studentRequest = StudentRequest.createFrom(studentCSV);
 
             // Add the classroom name in StudentRequest
-            //studentRequest.setClassroomName(classroomName);
+            studentRequest.setClassroomName(classroomName);
 
             Student newStudent = registerStudent(studentRequest);
 
@@ -291,9 +325,14 @@ public class StudentServiceImpl implements StudentService {
     // ==================== PRIVATE METHOD =======================
     // ===========================================================
 
-    private Student createNewStudent(StudentRequest studentRequest, User user, PersonalData personalData) {
+    private Student createNewStudent(
+            StudentRequest studentRequest,
+            User user,
+            PersonalData personalData,
+            Classroom classroom) {
 
         Student newStudent = new Student();
+        newStudent.setClassroom(classroom);
         newStudent.setPersonalData(personalData);
         newStudent.setUser(user);
 

@@ -70,6 +70,6 @@ public class User implements Serializable {
 
     // ============= MAPPING WITH OTHER TABLES =================
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "ROLE_ID")
+    @JoinColumn(name = "ROLE_ID", foreignKey = @ForeignKey(name = "FK_ROLE_IN_USER"))
     private Role role;
 }

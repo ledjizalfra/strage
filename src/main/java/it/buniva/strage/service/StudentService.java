@@ -2,6 +2,7 @@ package it.buniva.strage.service;
 
 import it.buniva.strage.entity.Student;
 import it.buniva.strage.entity.compositeatributte.PersonalData;
+import it.buniva.strage.exception.classroom.ClassroomNotFoundException;
 import it.buniva.strage.exception.csvfile.*;
 import it.buniva.strage.exception.role.RoleNotFoundException;
 import it.buniva.strage.exception.student.DuplicatePersonalDataException;
@@ -22,9 +23,9 @@ public interface StudentService {
     // ============================= CREATE ===============================
     Student registerStudent(StudentRequest studentRequest)
             throws DuplicateUsernameException, UserNotFoundException, RoleNotFoundException,
-            StudentNotFoundException, DuplicatePersonalDataException, MessagingException;
+            StudentNotFoundException, DuplicatePersonalDataException, MessagingException, ClassroomNotFoundException;
 
-    List<Student> registerStudentsFromCsvFile(String classroomName, MultipartFile csvFile) throws NoItemFoundInFileException, FileNotPresentException, CSVHeaderFieldNotFoundException, CSVEmailFormatException, CSVNumberFormatException, IOException, CSVInconsistentRecordException, CSVNameFormatException, TypeFileNotCorrectException, InvalidNumberHeaderFieldException, UserNotFoundException, MessagingException, DuplicateUsernameException, RoleNotFoundException, StudentNotFoundException, DuplicatePersonalDataException;
+    List<Student> registerStudentsFromCsvFile(String classroomName, MultipartFile csvFile) throws NoItemFoundInFileException, FileNotPresentException, CSVHeaderFieldNotFoundException, CSVEmailFormatException, CSVNumberFormatException, IOException, CSVInconsistentRecordException, CSVNameFormatException, TypeFileNotCorrectException, InvalidNumberHeaderFieldException, UserNotFoundException, MessagingException, DuplicateUsernameException, RoleNotFoundException, StudentNotFoundException, DuplicatePersonalDataException, ClassroomNotFoundException;
 
     // ============================== READ ================================
     Student getStudentByIdAndEnabledTrueAndDeletedFalse(Long studentId) throws StudentNotFoundException;

@@ -26,10 +26,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.time.Instant;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -47,6 +46,7 @@ public class ExceptionHandling {
     }
 
 
+    // Method argument not valid Exception
     public static ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex){
 
         BindingResult bindingResult = ex.getBindingResult();
@@ -71,11 +71,38 @@ public class ExceptionHandling {
         ApiErrorsView apiErrorsView = new ApiErrorsView(apiFieldErrors, apiGlobalErrors);
 
         return new ResponseEntity<Object>(new ApiResponseCustom(Instant.now(), 422,
-                HttpStatus.UNPROCESSABLE_ENTITY, StringUtils.EMPTY, apiErrorsView,
+                HttpStatus.UNPROCESSABLE_ENTITY, "Method Argument Not Valid Exception", apiErrorsView,
                 StringUtils.EMPTY),
                 HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
+    // Constraint violation Exception during write/update on DB
+    private ResponseEntity<Object> constraintViolationExceptionHandler(ConstraintViolationException ex) {
+
+        Map<String, Object> result = new HashMap<>();
+
+        List<ApiFieldError> apiFieldErrorList =  ex.getConstraintViolations().stream()
+                .map(e -> new ApiFieldError(
+                        e.getPropertyPath().toString(), // field
+                        e.getPropertyPath().toString(), // Code
+                        e.getMessage(),
+                        e.getInvalidValue()))
+                .collect(Collectors.toList());
+
+        result.put("Field Error", apiFieldErrorList);
+
+        return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 422,
+                HttpStatus.UNPROCESSABLE_ENTITY, "Constraint Violation Exception", result,
+                StringUtils.EMPTY),
+                HttpStatus.UNPROCESSABLE_ENTITY);
+    }
+    // Constraint violation Exception handling
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Object> methodArgumentNotValidException(ConstraintViolationException exception) {
+        return constraintViolationExceptionHandler(exception);
+    }
+
+    // Method argument not valid Exception handling
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<Object> methodArgumentNotValidException(MethodArgumentNotValidException exception) {
         return handleMethodArgumentNotValid(exception);
@@ -95,6 +122,12 @@ public class ExceptionHandling {
 
     @ExceptionHandler(PwdResetTokenExpiredException.class)
     public ResponseEntity<ApiResponseCustom> pwdResetTokenExpiredException(PwdResetTokenExpiredException exception) {
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
+    // =================================== ILLEGAL ARGUMENT EXCEPTION =====================================
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ApiResponseCustom> illegalArgumentException(IllegalArgumentException exception) {
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
@@ -134,6 +167,7 @@ public class ExceptionHandling {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponseCustom> internalServerErrorException(Exception exception) {
         LOGGER.error(exception.getMessage());
+        LOGGER.error("CLASS EXCEPTION NAME: " + exception.getClass().getName());
         return createHttpResponse(
                 HttpStatus.INTERNAL_SERVER_ERROR,
                 ExceptionHandlerConstant.INTERNAL_SERVER_ERROR_MSG

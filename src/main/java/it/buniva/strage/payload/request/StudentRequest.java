@@ -15,6 +15,9 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class StudentRequest {
 
+    @NotBlank
+    private String classroomName;
+
     @Email
     @NotBlank
     @Size(min=1, max=100)
@@ -33,14 +36,27 @@ public class StudentRequest {
     private String surname;
 
 
+    public StudentRequest(
+            String email,
+            String password,
+            String name,
+            String surname) {
 
-    public static StudentRequest createFrom(StudentCSV userCSV) {
+        this.email = email;
+        this.password = "";
+        this.name = name;
+        this.surname = surname;
+    }
+
+
+
+    public static StudentRequest createFrom(StudentCSV studentCSV) {
 
         return new StudentRequest(
-                userCSV.getEmail(),
+                studentCSV.getEmail(),
                 StringUtils.EMPTY,
-                userCSV.getName(),
-                userCSV.getSurname()
+                studentCSV.getName(),
+                studentCSV.getSurname()
         );
     }
 }

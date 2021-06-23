@@ -2,6 +2,8 @@ package it.buniva.strage.controller;
 
 import it.buniva.strage.api.ApiResponseCustom;
 import it.buniva.strage.entity.Student;
+import it.buniva.strage.event.UserAddedSuccessfullyEvent;
+import it.buniva.strage.exception.classroom.ClassroomNotFoundException;
 import it.buniva.strage.exception.role.RoleNotFoundException;
 import it.buniva.strage.exception.student.DuplicatePersonalDataException;
 import it.buniva.strage.exception.student.EmptyStudentListException;
@@ -15,6 +17,7 @@ import it.buniva.strage.payload.response.StudentResponse;
 import it.buniva.strage.service.StudentService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +38,9 @@ public class StudentController extends StudentExceptionHandling {
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private ApplicationEventPublisher publisher;
+
 
     // ============================= CREATE ===============================
     @PostMapping(value = "/register-student")
@@ -43,9 +49,12 @@ public class StudentController extends StudentExceptionHandling {
             @RequestBody @Valid StudentRequest studentRequest,
             HttpServletRequest request)
             throws DuplicateUsernameException, UserNotFoundException, RoleNotFoundException,
-            StudentNotFoundException, DuplicatePersonalDataException, MessagingException {
+            StudentNotFoundException, DuplicatePersonalDataException, MessagingException, ClassroomNotFoundException {
 
         Student student = studentService.registerStudent(studentRequest);
+
+        // Publish an event to notifier the send mail Scheduling that it can start sending mail
+        publisher.publishEvent(new UserAddedSuccessfullyEvent(this, true));
 
         return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 201,
                 HttpStatus.CREATED, "", StudentResponse.createFromStudent(student), request.getRequestURI()),
@@ -56,7 +65,7 @@ public class StudentController extends StudentExceptionHandling {
     @PostMapping("/register-many-students-from-csvfile")
     //    @PreAuthorize("hasAuthority('student:create')")
     public ResponseEntity<ApiResponseCustom> registerStudentsFromCsvFile(
-            @RequestParam("classroomName") String classroomName,
+            @RequestParam(value = "classroomName"/*, defaultValue = "EMPTY_CLASSROOM_NAME"*/) String classroomName,
             @RequestParam("csvFile") MultipartFile csvFile,
             HttpServletRequest request)
             throws Exception {
@@ -66,6 +75,9 @@ public class StudentController extends StudentExceptionHandling {
         List<StudentResponse> studentInfoResponseList = studentList.stream()
                 .map(StudentResponse::createFromStudent)
                 .collect(Collectors.toList());
+
+        // Publish an event to notifier the send mail Scheduling that it can start sending mail
+        publisher.publishEvent(new UserAddedSuccessfullyEvent(this, true));
 
         return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 200,
                 HttpStatus.OK, StringUtils.EMPTY, studentInfoResponseList, request.getRequestURI()),

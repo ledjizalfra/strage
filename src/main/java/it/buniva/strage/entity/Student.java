@@ -55,8 +55,15 @@ public class Student implements Serializable {
 
 
     // ============= MAPPING WITH OTHER TABLES =================
+    @NotNull
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="USER_ID", foreignKey = @ForeignKey(name = "FK_USER_IN_STUDENT"))
     private User user;
+
+    @NotNull
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="CLASS_ID", foreignKey = @ForeignKey(name = "FK_CLASSROOM_IN_STUDENT"))
+    private Classroom classroom;
 }

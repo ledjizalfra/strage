@@ -51,6 +51,6 @@ public class Professor implements Serializable {
     // ============= MAPPING WITH OTHER TABLES =================
     @JsonIgnore
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="USER_ID")
+    @JoinColumn(name="USER_ID", foreignKey = @ForeignKey(name = "FK_USER_IN_PROFESSOR"))
     private User user;
 }
