@@ -1,5 +1,6 @@
 package it.buniva.strage.controller;
 
+import io.swagger.annotations.ApiOperation;
 import it.buniva.strage.api.ApiResponseCustom;
 import it.buniva.strage.entity.Admin;
 import it.buniva.strage.event.UserAddedSuccessfullyEvent;
@@ -39,6 +40,11 @@ public class AdminController extends AdminExceptionHandling {
 
 
     // ============================= CREATE ===============================
+    @ApiOperation(value = "RegisterAdmin", notes = "Allows to register a new Admin, "
+            + "but also providing the general user info (email and authorities).\n"
+            + "response messages:\n"
+            + " => Model(AdminResponse): in case of success,\n"
+            + " => Otherwise return an error message")
     @PostMapping(value = "/register-admin")
 //    @PreAuthorize("hasAuthority('admin:create')")
     public ResponseEntity<ApiResponseCustom> registerAdmin(

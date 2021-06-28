@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -43,16 +44,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private @Qualifier("userDetailsService")
     UserDetailsService userDetailsService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
                 .userDetailsService(userDetailsService)
-                .passwordEncoder(bCryptPasswordEncoder);
+                .passwordEncoder(bCryptPasswordEncoder());
     }
 
     @Override
@@ -70,6 +67,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()
                 .antMatchers(SecurityConstant.PUBLIC_URLS).permitAll()
+                .antMatchers(
+                        "/v2/api-docs",
+                        "/configuration/**",
+                        "/swagger-resources/**",
+                        "/swagger-ui.html#",
+                        "/webjars/**",
+                        "/api-docs/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

@@ -1,15 +1,25 @@
 package it.buniva.strage.service.implementation;
 
 import it.buniva.strage.constant.ClassroomConstant;
-import it.buniva.strage.entity.Classroom;
-import it.buniva.strage.entity.User;
+import it.buniva.strage.entity.*;
 import it.buniva.strage.exception.classroom.ClassroomNotFoundException;
 import it.buniva.strage.exception.classroom.DuplicateClassroomNameException;
 import it.buniva.strage.exception.classroom.EmptyClassroomListException;
+import it.buniva.strage.exception.professor.ProfessorAlreadyExistsException;
+import it.buniva.strage.exception.professor.ProfessorNotFoundException;
+import it.buniva.strage.exception.student.EmptyStudentListException;
+import it.buniva.strage.exception.subject.SubjectAlreadyExistsException;
+import it.buniva.strage.exception.subject.SubjectNotFoundException;
 import it.buniva.strage.payload.request.ClassroomListRequest;
 import it.buniva.strage.payload.request.ClassroomRequest;
+import it.buniva.strage.payload.request.ProfessorInClassRequest;
+import it.buniva.strage.payload.request.SubjectInClassRequest;
+import it.buniva.strage.payload.response.ClassroomResponse;
 import it.buniva.strage.repository.ClassroomRepository;
 import it.buniva.strage.service.ClassroomService;
+import it.buniva.strage.service.ProfessorService;
+import it.buniva.strage.service.StudentService;
+import it.buniva.strage.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +35,14 @@ public class ClassroomServiceImpl implements ClassroomService {
     @Autowired
     private ClassroomRepository classroomRepository;
 
+    @Autowired
+    private ProfessorService professorService;
+
+    @Autowired
+    private SubjectService subjectService;
+
+    @Autowired
+    private StudentService studentService;
 
 
     // ===================================================================
@@ -41,9 +59,7 @@ public class ClassroomServiceImpl implements ClassroomService {
         // Can throw exception
         existsAlreadyClassroomByName(name);
 
-        Classroom classroom = createNewClassroom(classroomRequest, name);
-
-        return getClassroomByIdAndEnabledTrueAndDeletedFalse(classroom.getId());
+        return createNewClassroom(classroomRequest, name);
     }
 
     @Override
@@ -88,7 +104,6 @@ public class ClassroomServiceImpl implements ClassroomService {
             throw new ClassroomNotFoundException(
                     String.format(ClassroomConstant.CLASSROOM_NOT_FOUND_BY_ID_MSG, classId));
         }
-
         return classroom;
     }
 
@@ -99,6 +114,23 @@ public class ClassroomServiceImpl implements ClassroomService {
             throw new EmptyClassroomListException(ClassroomConstant.EMPTY_CLASSROOM_LIST_MSG);
         }
         return classroomList;
+    }
+
+    @Override
+    public List<Professor> getAllProfessorsInClassroom(String classroomName) throws ClassroomNotFoundException {
+        Classroom classroom = getClassroomByClassroomNameAndDeletedFalse(classroomName);
+        return new ArrayList<>(classroom.getProfessorSet());
+    }
+
+    @Override
+    public List<Subject> getAllSubjectsInClassroom(String classroomName) throws ClassroomNotFoundException {
+        Classroom classroom = getClassroomByClassroomNameAndDeletedFalse(classroomName);
+        return new ArrayList<>(classroom.getSubjectSet());
+    }
+
+    @Override
+    public List<Student> getAllStudentsInClassroom(String classroomName) throws EmptyStudentListException {
+        return studentService.getAllStudentsInClassroom(classroomName);
     }
 
     @Override
@@ -120,6 +152,40 @@ public class ClassroomServiceImpl implements ClassroomService {
         return saveClassroom(classroom);
     }
 
+
+    @Override
+    public void addProfessorInClassroom(ProfessorInClassRequest professorInClassRequest) throws ProfessorNotFoundException, ClassroomNotFoundException, ProfessorAlreadyExistsException {
+        Professor professor = professorService.getProfessorByEmail(professorInClassRequest.getProfessorEmail());
+        Classroom classroom = getClassroomByNameAndEnabledTrueAndDeletedFalse(professorInClassRequest.getClassroomName());
+        if(classroom.getProfessorSet().contains(professor)) {
+            throw new ProfessorAlreadyExistsException(
+                    String.format(
+                            ClassroomConstant.PROFESSOR_ALREADY_EXIST_IN_CLASSROOM_MSG,
+                            professorInClassRequest.getProfessorEmail(),
+                            professorInClassRequest.getClassroomName()));
+        }
+
+        classroom.getProfessorSet().add(professor);
+        saveClassroom(classroom);
+    }
+
+    @Override
+    public void addSubjectInClassroom(SubjectInClassRequest subjectInClassRequest) throws ClassroomNotFoundException, SubjectNotFoundException, SubjectAlreadyExistsException {
+        Subject subject = subjectService.getSubjectBySubjectCodeAndEnabledTrueAndDeletedFalse(subjectInClassRequest.getSubjectCode());
+        Classroom classroom = getClassroomByNameAndEnabledTrueAndDeletedFalse(subjectInClassRequest.getClassroomName());
+
+        if(classroom.getSubjectSet().contains(subject)) {
+            throw new SubjectAlreadyExistsException(
+                    String.format(
+                            ClassroomConstant.SUBJECT_ALREADY_EXIST_IN_CLASSROOM_MSG,
+                            subjectInClassRequest.getSubjectCode(),
+                            subjectInClassRequest.getClassroomName()));
+        }
+
+        classroom.getSubjectSet().add(subject);
+        saveClassroom(classroom);
+    }
+
     // ============================= DELETE ================================
 
     // ============================== SAVE ==================================
@@ -129,8 +195,6 @@ public class ClassroomServiceImpl implements ClassroomService {
     }
 
     // ============================== OTHER ==================================
-
-
 
 
 

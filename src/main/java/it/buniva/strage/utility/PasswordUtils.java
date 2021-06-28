@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 @Component
 public class PasswordUtils {
 
-    @Autowired
+    /*@Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
     public String encodePassword(String password) {
@@ -22,7 +22,7 @@ public class PasswordUtils {
 
     public boolean passwordMatches(String oldPassword, User user) {
         return passwordEncoder.matches(oldPassword, user.getPassword());
-    }
+    }*/
 
     /**
      * GENERATE A RANDOM SECURE PASSWORD

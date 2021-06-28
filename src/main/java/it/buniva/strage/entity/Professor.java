@@ -11,6 +11,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -53,4 +54,11 @@ public class Professor implements Serializable {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="USER_ID", foreignKey = @ForeignKey(name = "FK_USER_IN_PROFESSOR"))
     private User user;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name="PROFESSOR_SUBJECT",
+            joinColumns = {@JoinColumn(name="PROFESSOR_ID", referencedColumnName="PROFESSOR_ID", foreignKey = @ForeignKey(name = "FK_PROFESSOR_IN_PROFESSOR_COURSES"))},
+            inverseJoinColumns = {@JoinColumn(name="SUBJECT_ID", referencedColumnName="SUBJECT_ID", foreignKey = @ForeignKey(name = "FK_SUBJECT_IN_PROFESSOR_COURSES"))})
+    private Set<Subject> subjectSet;
 }

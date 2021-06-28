@@ -18,6 +18,8 @@ public class ClassroomResponse {
 
     private String section;
 
+    private boolean enabled;
+
 
     public static ClassroomResponse createFrom(Classroom classroom) {
 
@@ -25,7 +27,8 @@ public class ClassroomResponse {
                 classroom.getClassroomName(),
                 classroom.getAnnuity(),
                 classroom.getDiscipline(),
-                classroom.getSection()
+                classroom.getSection(),
+                classroom.isEnabled()
         );
     }
 }

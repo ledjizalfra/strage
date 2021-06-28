@@ -1,0 +1,46 @@
+version: '3'
+
+networks:
+  strage_network:
+    driver: bridge
+  
+volumes:
+  mysql_data:
+    driver: local
+
+services:
+  ###################################
+  #            DATA BASE            #
+  ###################################
+  mysql-db:
+    image: mysql
+    container_name: mysql-container
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_USER: strage
+      MYSQL_PASSWORD: strage
+      TZ: Europe/Rome
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - 3305:3306
+    networks:
+      - strage_network
+      
+  # DATA BASE CLIENT TOOL MYSQL ( PHPMYADMIN )
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin-container
+    restart: always
+    environment:
+      - PMA_ARBITRARY=1
+    ports:
+      - 0.0.0.0:8085:80
+    volumes:
+      - /sessions
+      - ~/docker/phpmyadmin/config.user.inc.php:/etc/phpmyadmin/config.user.inc.php
+      - /custom/phpmyadmin/theme/:/www/themes/theme/
+    networks:
+      - strage_network

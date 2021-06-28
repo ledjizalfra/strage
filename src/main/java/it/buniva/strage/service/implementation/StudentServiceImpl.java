@@ -233,6 +233,17 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getAllStudentsInClassroom(String classroomName) throws EmptyStudentListException {
+        List<Student> studentList = studentRepository.findAllByClassroomClassroomNameAndEnabledTrueAndDeletedFalse(classroomName);
+
+        if (studentList.isEmpty()) {
+            throw new EmptyStudentListException(StudentConstant.EMPTY_STUDENT_LIST_MSG);
+        }
+
+        return studentList;
+    }
+
+    @Override
     public void existsAlreadyStudentByPersonalData(PersonalData personalData) throws DuplicatePersonalDataException {
         boolean existStudent = studentRepository.existsByPersonalData(personalData);
         if(existStudent) {

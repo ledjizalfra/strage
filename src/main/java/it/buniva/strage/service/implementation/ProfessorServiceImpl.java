@@ -1,26 +1,29 @@
 package it.buniva.strage.service.implementation;
 
+import it.buniva.strage.constant.ClassroomConstant;
 import it.buniva.strage.constant.ProfessorConstant;
 import it.buniva.strage.constant.UserConstant;
 import it.buniva.strage.entity.Professor;
+import it.buniva.strage.entity.Subject;
 import it.buniva.strage.entity.User;
 import it.buniva.strage.entity.compositeatributte.PersonalData;
 import it.buniva.strage.enumaration.MailObject;
 import it.buniva.strage.enumaration.RoleName;
 import it.buniva.strage.event.SendMailEvent;
 import it.buniva.strage.exception.professor.EmptyProfessorListException;
+import it.buniva.strage.exception.professor.ProfessorAlreadyExistsException;
 import it.buniva.strage.exception.professor.ProfessorNotFoundException;
 import it.buniva.strage.exception.role.RoleNotFoundException;
 import it.buniva.strage.exception.student.DuplicatePersonalDataException;
+import it.buniva.strage.exception.subject.SubjectAlreadyExistsException;
+import it.buniva.strage.exception.subject.SubjectNotFoundException;
 import it.buniva.strage.exception.user.DuplicateUsernameException;
 import it.buniva.strage.exception.user.UserNotFoundException;
-import it.buniva.strage.payload.request.PersonalDataRequest;
-import it.buniva.strage.payload.request.ProfessorRequest;
-import it.buniva.strage.payload.request.SendMailRequest;
-import it.buniva.strage.payload.request.UserRequest;
+import it.buniva.strage.payload.request.*;
 import it.buniva.strage.repository.ProfessorRepository;
 import it.buniva.strage.service.MailService;
 import it.buniva.strage.service.ProfessorService;
+import it.buniva.strage.service.SubjectService;
 import it.buniva.strage.service.UserService;
 import it.buniva.strage.utility.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.mail.MessagingException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -47,6 +51,9 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private SubjectService subjectService;
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -165,6 +172,13 @@ public class ProfessorServiceImpl implements ProfessorService {
     }
 
     @Override
+    public List<Subject> getAllSubjectsOfProfessor(String profEmail) throws ProfessorNotFoundException {
+        Professor professor = getProfessorByEmail(profEmail);
+
+        return new ArrayList<>(professor.getSubjectSet());
+    }
+
+    @Override
     public void existsAlreadyProfessorByPersonalData(PersonalData personalData) throws DuplicatePersonalDataException {
         boolean existProfessor = professorRepository.existsByPersonalData(personalData);
         if(existProfessor) {
@@ -217,6 +231,23 @@ public class ProfessorServiceImpl implements ProfessorService {
         professor.setEnabled(enabled);
 
         return saveProfessor(professor);
+    }
+
+    @Override
+    public void assignSubjectToProfessor(SubjectToProfessorRequest subjectToProfessorRequest) throws SubjectNotFoundException, ProfessorNotFoundException, SubjectAlreadyExistsException {
+        Subject subject = subjectService.getSubjectBySubjectCodeAndEnabledTrueAndDeletedFalse(subjectToProfessorRequest.getSubjectCode());
+        Professor professor = getProfessorByEmail(subjectToProfessorRequest.getProfessorEmail());
+
+        if(professor.getSubjectSet().contains(subject)) {
+            throw new SubjectAlreadyExistsException(
+                    String.format(
+                            ProfessorConstant.SUBJECT_ALREADY_EXIST_FOR_PROFESSOR_MSG,
+                            subjectToProfessorRequest.getSubjectCode(),
+                            subjectToProfessorRequest.getProfessorEmail()));
+        }
+
+        professor.getSubjectSet().add(subject);
+        saveProfessor(professor);
     }
 
     // ============================= DELETE ================================

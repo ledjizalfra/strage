@@ -47,51 +47,6 @@ public class SendMailListener implements ApplicationListener<SendMailEvent>{
     }
 
 
-    /*// Time in milliseconds
-    @Scheduled(initialDelay = 2000, fixedDelay = 3000, zone = "Europe/Rome")
-    public void sendingEmailToUserAfterRegistration() {
-       *//* if(sendMailRequestsQueue.isEmpty()) {
-            LOGGER.info("WAITING A SEND MAIL REQUEST...");
-        }*//*
-        if( !sendMailRequestsQueue.isEmpty()) {
-//            LOGGER.info("SEND MAIL REQUEST ARRIVE...");
-
-            sendMailRequest = sendMailRequestsQueue.getFirst();
-            User userByMail = new User();
-            String email = sendMailRequest.getEmailTo();
-            try {
-                // Retrieve the user who receive the mail
-                userByMail = userService.getUserByUsername(email);
-
-                // Send the mail to the student
-                mailService.sendEmail(sendMailRequest);
-
-                userByMail.setMailSent(true);
-                userService.saveUser(userByMail);
-
-            } catch (UserNotFoundException e) {
-                LOGGER.info(String.format(
-                        "UserNotFoundException: " + UserConstant.USER_NOT_FOUND_BY_USERNAME_MSG, email));
-
-                sendMailRequestsQueue.removeFirst();
-                return;
-
-            } catch ( MessagingException ex) {
-                // catch exception without showing the message
-                // Sending mail fail, user would not receive the mail
-                LOGGER.info("An error occur during sending mail to: {}", email);
-                userByMail.setMailSent(false);
-                userService.saveUser(userByMail);
-
-                sendMailRequestsQueue.removeFirst();
-                return;
-            }
-            LOGGER.info("Email successfully sent to: {}", email);
-            sendMailRequestsQueue.removeFirst();
-        }
-    }*/
-
-
     // GETTER AND SETTER
 
     public SendMailRequest getSendMailRequest() {

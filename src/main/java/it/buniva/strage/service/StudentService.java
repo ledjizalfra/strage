@@ -40,6 +40,8 @@ public interface StudentService {
 
     List<Student> getAllStudentsByEnabledTrueAndDeletedFalse() throws EmptyStudentListException;
 
+    List<Student> getAllStudentsInClassroom(String classroomName) throws EmptyStudentListException;
+
     void existsAlreadyStudentByPersonalData(PersonalData personalData) throws DuplicatePersonalDataException;
 
     void existsAlreadyStudentByPersonalDataOnUpdate(Long studentId, PersonalData personalData) throws DuplicatePersonalDataException;

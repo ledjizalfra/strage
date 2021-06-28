@@ -22,4 +22,9 @@ public class ProfessorExceptionHandling {
     public ResponseEntity<ApiResponseCustom> emptyProfessorListException(EmptyProfessorListException exception) {
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
+
+    @ExceptionHandler(ProfessorAlreadyExistsException.class)
+    public ResponseEntity<ApiResponseCustom> professorAlreadyExistsException(ProfessorAlreadyExistsException exception) {
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
 }

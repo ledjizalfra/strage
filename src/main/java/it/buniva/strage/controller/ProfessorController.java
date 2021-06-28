@@ -1,21 +1,30 @@
 package it.buniva.strage.controller;
 
 import it.buniva.strage.api.ApiResponseCustom;
+import it.buniva.strage.constant.ClassroomConstant;
+import it.buniva.strage.constant.ProfessorConstant;
 import it.buniva.strage.entity.Professor;
 import it.buniva.strage.event.UserAddedSuccessfullyEvent;
 import it.buniva.strage.exception.admin.AdminNotFoundException;
+import it.buniva.strage.exception.classroom.EmptyClassroomListException;
 import it.buniva.strage.exception.professor.EmptyProfessorListException;
 import it.buniva.strage.exception.professor.ProfessorExceptionHandling;
 import it.buniva.strage.exception.professor.ProfessorNotFoundException;
 import it.buniva.strage.exception.role.RoleNotFoundException;
 import it.buniva.strage.exception.student.DuplicatePersonalDataException;
 import it.buniva.strage.exception.student.StudentNotFoundException;
+import it.buniva.strage.exception.subject.SubjectAlreadyExistsException;
+import it.buniva.strage.exception.subject.SubjectNotFoundException;
 import it.buniva.strage.exception.user.DuplicateUsernameException;
 import it.buniva.strage.exception.user.UserNotFoundException;
 import it.buniva.strage.payload.request.PersonalDataRequest;
+import it.buniva.strage.payload.request.ProfessorInClassRequest;
 import it.buniva.strage.payload.request.ProfessorRequest;
+import it.buniva.strage.payload.request.SubjectToProfessorRequest;
 import it.buniva.strage.payload.response.ProfessorResponse;
+import it.buniva.strage.payload.response.SubjectResponse;
 import it.buniva.strage.service.ProfessorService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.http.HttpStatus;
@@ -29,6 +38,7 @@ import javax.validation.Valid;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/professors")
@@ -89,6 +99,23 @@ public class ProfessorController extends ProfessorExceptionHandling {
                 HttpStatus.OK);
     }
 
+    @GetMapping("/get-all-subjects-of-professor/{profEmail}")
+    //    @PreAuthorize("hasAuthority('subject:read') and hasAuthority('professor:read')")
+    public ResponseEntity<ApiResponseCustom> getAllSubjectsOfProfessor(
+            @PathVariable("profEmail") String profEmail,
+            HttpServletRequest request) throws ProfessorNotFoundException {
+
+        // List<Subject> subjectList = professorService.getAllSubjectsOfProfessor(profEmail);
+        List<SubjectResponse> subjectResponseList =
+                professorService.getAllSubjectsOfProfessor(profEmail).stream()
+                        .map(SubjectResponse::createFromSubject)
+                        .collect(Collectors.toList());
+
+        return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 200,
+                HttpStatus.OK, StringUtils.EMPTY, subjectResponseList, request.getRequestURI()),
+                HttpStatus.OK);
+    }
+
     // ============================ UPDATE =================================
     @PutMapping(value = "/enable-disable/{professorId}")
 //    @PreAuthorize("hasAuthority('professor:update')")
@@ -101,6 +128,25 @@ public class ProfessorController extends ProfessorExceptionHandling {
 
         return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 200,
                 HttpStatus.OK, "", ProfessorResponse.createFromProfessor(professor), request.getRequestURI()),
+                HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/assign-subject-to-professor")
+//    @PreAuthorize("hasAuthority('subject:update') and hasAuthority('professor:update')")
+    public ResponseEntity<ApiResponseCustom> assignSubjectToProfessor(
+            @RequestBody @Valid SubjectToProfessorRequest subjectToProfessorRequest,
+            HttpServletRequest request) throws SubjectNotFoundException, ProfessorNotFoundException, SubjectAlreadyExistsException {
+
+        professorService.assignSubjectToProfessor(subjectToProfessorRequest);
+
+        String message = String.format(
+                ProfessorConstant.SUBJECT_ASSIGNED_TO_PROFESSOR_MSG,
+                subjectToProfessorRequest.getSubjectCode(),
+                subjectToProfessorRequest.getProfessorEmail()
+        );
+
+        return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 200,
+                HttpStatus.OK, "", message, request.getRequestURI()),
                 HttpStatus.OK);
     }
 

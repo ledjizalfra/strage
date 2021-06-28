@@ -29,6 +29,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -71,6 +72,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private MailService mailService;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
 
     // ===================================================================
@@ -251,11 +255,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         // check if old password matches with the actual password before we set the new password
-        if(!passwordUtils.passwordMatches(passwordRequest.getOldPassword(), user)) {
+        if(!passwordEncoder.matches(passwordRequest.getOldPassword(), user.getPassword())) {
             throw new PasswordNotMatchesException(UserConstant.PASSWORD_NO_MATCHES_MSG);
         }
 
-        user.setPassword(passwordUtils.encodePassword(passwordRequest.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(passwordRequest.getNewPassword()));
 
         saveUser(user);
     }
@@ -322,7 +326,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
 
         User user = pwdResetToken.getUser();
-        user.setPassword(passwordUtils.encodePassword(pwdResetRequest.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(pwdResetRequest.getNewPassword()));
 
         saveUser(user);
 
@@ -341,7 +345,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         User user = new User();
 
-        String encodedPassword = passwordUtils.encodePassword(userRequest.getPassword());
+        String encodedPassword = passwordEncoder.encode(userRequest.getPassword());
 
         user.setUsername(userRequest.getUsername());
         user.setPassword(encodedPassword);

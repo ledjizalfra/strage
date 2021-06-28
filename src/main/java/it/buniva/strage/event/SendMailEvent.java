@@ -7,7 +7,10 @@ public class SendMailEvent extends ApplicationEvent {
 
     private static final long serialVersionUID = 1L;
 
+
     private SendMailRequest sendMailRequest;
+
+
 
     public SendMailEvent(Object source, SendMailRequest sendMailRequest) {
         super(source);

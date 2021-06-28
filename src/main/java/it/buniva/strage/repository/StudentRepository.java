@@ -28,4 +28,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     Student findByIdAndEnabledTrueAndDeletedFalse(Long studentId);
 
     Student findByUserUserIdAndDeletedFalse(Long userId);
+
+    List<Student> findAllByClassroomClassroomNameAndEnabledTrueAndDeletedFalse(String classroomName);
 }

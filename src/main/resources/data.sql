@@ -43,5 +43,29 @@ INSERT IGNORE INTO permission VALUE (21, 'STUDENT_DELETE', 'student:delete');
 INSERT IGNORE INTO permission VALUE (22, 'CLASSROOM_CREATE', 'classroom:create');
 INSERT IGNORE INTO permission VALUE (23, 'CLASSROOM_READ', 'classroom:read');
 INSERT IGNORE INTO permission VALUE (24, 'CLASSROOM_UPDATE', 'classroom:update');
-INSERT IGNORE INTO permission VALUE (24, 'CLASSROOM_DELETE', 'classroom:delete');
+INSERT IGNORE INTO permission VALUE (25, 'CLASSROOM_DELETE', 'classroom:delete');
+
+--SUBJECT
+INSERT IGNORE INTO permission VALUE (26, 'SUBJECT_CREATE', 'subject:create');
+INSERT IGNORE INTO permission VALUE (27, 'SUBJECT_READ', 'subject:read');
+INSERT IGNORE INTO permission VALUE (28, 'SUBJECT_UPDATE', 'subject:update');
+INSERT IGNORE INTO permission VALUE (29, 'SUBJECT_DELETE', 'subject:delete');
+
+--ARGUMENT
+INSERT IGNORE INTO permission VALUE (30, 'ARGUMENT_CREATE', 'argument:create');
+INSERT IGNORE INTO permission VALUE (31, 'ARGUMENT_READ', 'argument:read');
+INSERT IGNORE INTO permission VALUE (32, 'ARGUMENT_UPDATE', 'argument:update');
+INSERT IGNORE INTO permission VALUE (33, 'ARGUMENT_DELETE', 'argument:delete');
+
+--QUESTION
+INSERT IGNORE INTO permission VALUE (34, 'QUESTION_CREATE', 'question:create');
+INSERT IGNORE INTO permission VALUE (35, 'QUESTION_READ', 'question:read');
+INSERT IGNORE INTO permission VALUE (36, 'QUESTION_UPDATE', 'question:update');
+INSERT IGNORE INTO permission VALUE (37, 'QUESTION_DELETE', 'question:delete');
+
+--ANSWER
+INSERT IGNORE INTO permission VALUE (38, 'ANSWER_CREATE', 'answer:create');
+INSERT IGNORE INTO permission VALUE (39, 'ANSWER_READ', 'answer:read');
+INSERT IGNORE INTO permission VALUE (40, 'ANSWER_UPDATE', 'answer:update');
+INSERT IGNORE INTO permission VALUE (41, 'ANSWER_DELETE', 'answer:delete');
 

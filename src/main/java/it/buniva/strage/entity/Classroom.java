@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 @Data
 @Entity
@@ -65,4 +66,19 @@ public class Classroom implements Serializable {
             columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss", timezone = "Europe/Rome")
     private Date updatedAt;
+
+    // ============= MAPPING WITH OTHER TABLES =================
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name="CLASSROOM_SUBJECT",
+            joinColumns = {@JoinColumn(name="CLASS_ID", referencedColumnName="CLASS_ID", foreignKey = @ForeignKey(name = "FK_CLASSROOM_IN_CLASSROOM_SUBJECT"))},
+            inverseJoinColumns = {@JoinColumn(name="SUBJECT_ID", referencedColumnName="SUBJECT_ID", foreignKey = @ForeignKey(name = "FK_SUBJECT_IN_CLASSROOM_SUBJECT"))})
+    private Set<Subject> subjectSet;
+
+    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name="CLASSROOM_PROFESSOR",
+            joinColumns = {@JoinColumn(name="CLASS_ID", referencedColumnName="CLASS_ID", foreignKey = @ForeignKey(name = "FK_CLASSROOM_IN_CLASSROOM_PROFESSOR"))},
+            inverseJoinColumns = {@JoinColumn(name="PROFESSOR_ID", referencedColumnName="PROFESSOR_ID", foreignKey = @ForeignKey(name = "FK_PROFESSOR_IN_CLASSROOM_PROFESSOR"))})
+    private Set<Professor> professorSet;
 }

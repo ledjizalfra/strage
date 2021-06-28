@@ -20,6 +20,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,9 @@ public class MailController {
     @Autowired
     private PasswordUtils passwordUtils;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 
     @PostMapping(path = "/send-credentials/{userId}")
     public ResponseEntity<ApiResponseCustom> sendCredentials(
@@ -63,7 +67,7 @@ public class MailController {
         User user = userService.getUserByIdAndEnabledTrueAndDeletedFalse(userId);
 
         String newPassword = passwordUtils.generatePassword(UserConstant.LENGTH_PASSWORD_GENERATED);
-        user.setPassword(passwordUtils.encodePassword(newPassword));
+        user.setPassword(passwordEncoder.encode(newPassword));
         userService.saveUser(user);
 
         String mailBody = null;

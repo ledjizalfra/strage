@@ -44,7 +44,31 @@ public enum PermissionName {
     CLASSROOM_CREATE("classroom:create"),
     CLASSROOM_READ("classroom:read"),
     CLASSROOM_UPDATE("classroom:update"),
-    CLASSROOM_DELETE("classroom:delete");
+    CLASSROOM_DELETE("classroom:delete"),
+
+    //SUBJECT
+    SUBJECT_CREATE("subject:create"),
+    SUBJECT_READ("subject:read"),
+    SUBJECT_UPDATE("subject:update"),
+    SUBJECT_DELETE("subject:delete"),
+
+    //ARGUMENT
+    ARGUMENT_CREATE("argument:create"),
+    ARGUMENT_READ("argument:read"),
+    ARGUMENT_UPDATE("argument:update"),
+    ARGUMENT_DELETE("argument:delete"),
+
+    //QUESTION
+    QUESTION_CREATE("question:create"),
+    QUESTION_READ("question:read"),
+    QUESTION_UPDATE("question:update"),
+    QUESTION_DELETE("question:delete"),
+
+    //ANSWER
+    ANSWER_CREATE("answer:create"),
+    ANSWER_READ("answer:read"),
+    ANSWER_UPDATE("answer:update"),
+    ANSWER_DELETE("answer:delete");
 
     private final String permission;
 
