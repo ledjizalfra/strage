@@ -16,6 +16,10 @@ public class QuestionResponse {
 
     private String argumentCode;
 
+    private Double correctAnswerMark;
+
+    private Double incorrectAnswerMark;
+
     private boolean enabled;
 
 
@@ -25,6 +29,8 @@ public class QuestionResponse {
                 question.getQuestionCode(),
                 question.getQuestionContent(),
                 question.getArgument().getArgumentCode(),
+                question.getCorrectAnswerMark(),
+                question.getIncorrectAnswerMark(),
                 question.isEnabled()
         );
     }

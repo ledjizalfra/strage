@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.DisabledException;
@@ -112,6 +113,13 @@ public class ExceptionHandling {
     public ResponseEntity<ApiResponseCustom> methodNotSupportedException(HttpRequestMethodNotSupportedException exception) {
         HttpMethod supportedMethod = Objects.requireNonNull(exception.getSupportedHttpMethods()).iterator().next();
         return createHttpResponse(HttpStatus.METHOD_NOT_ALLOWED, String.format(ExceptionHandlerConstant.METHOD_IS_NOT_ALLOWED, supportedMethod));
+    }
+
+    // Error: org.springframework.http.converter.HttpMessageNotReadableException
+    // Ex msg: Required request body is missing
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<ApiResponseCustom> httpMessageNotReadableException(HttpMessageNotReadableException exception) {
+        return createHttpResponse(HttpStatus.INTERNAL_SERVER_ERROR, exception.getMessage());
     }
 
     // =================================== PASSWORD RESET TOKEN ========================================

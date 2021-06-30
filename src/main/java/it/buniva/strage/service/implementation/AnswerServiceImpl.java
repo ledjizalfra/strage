@@ -6,6 +6,7 @@ import it.buniva.strage.entity.Question;
 import it.buniva.strage.exception.answer.*;
 import it.buniva.strage.exception.question.QuestionNotFoundException;
 import it.buniva.strage.payload.request.AnswerRequest;
+import it.buniva.strage.payload.request.AnswerUpdateRequest;
 import it.buniva.strage.repository.AnswerRepository;
 import it.buniva.strage.service.AnswerService;
 import it.buniva.strage.service.QuestionService;
@@ -14,6 +15,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -83,6 +86,59 @@ public class AnswerServiceImpl implements AnswerService {
 
     // ============================== READ ================================
     @Override
+    public Answer getAnswerByCodeAndEnabledTrueAndDeletedFalse(String answerCode)
+            throws AnswerNotFoundException {
+
+        Answer answer = answerRepository.findByAnswerCodeAndEnabledTrueAndDeletedFalse(answerCode);
+
+        if (answer == null) {
+            throw new AnswerNotFoundException(
+                    String.format(AnswerConstant.ANSWER_NOT_FOUND_BY_CODE_MSG, answerCode));
+        }
+
+        return answer;
+    }
+
+    @Override
+    public Answer getAnswerByCodeAndDeletedFalse(String answerCode) throws AnswerNotFoundException {
+        Answer answer = answerRepository.findByAnswerCodeAndDeletedFalse(answerCode);
+
+        if (answer == null) {
+            throw new AnswerNotFoundException(
+                    String.format(AnswerConstant.ANSWER_NOT_FOUND_BY_CODE_MSG, answerCode));
+        }
+
+        return answer;
+    }
+
+    @Override
+    public List<Answer> getAllAnswerByQuestion(String questionCode) throws EmptyAnswerListException {
+        List<Answer> answerList = answerRepository.findAllByQuestionQuestionCodeAndEnabledTrueAndDeletedFalse(questionCode);
+
+        if (answerList.isEmpty()) {
+            throw new EmptyAnswerListException(AnswerConstant.EMPTY_ANSWER_LIST_MSG);
+        }
+
+        return answerList;
+    }
+
+    @Override
+    public List<Answer> getAllAnswerByQuestionCode(String questionCode) throws EmptyAnswerListException {
+        List<Answer> answers = answerRepository.findAllByQuestionQuestionCodeAndEnabledTrueAndDeletedFalse(questionCode);
+        if (answers.isEmpty())
+        {
+            throw new EmptyAnswerListException(String.format(AnswerConstant.EMPTY_ANSWER_LIST_MSG, questionCode));
+        }
+        return answers;
+    }
+
+    @Override
+    public Answer getCorrectAnswerInQuestion(String questionCode) throws QuestionNotFoundException {
+        Question question = questionService.getQuestionByQuestionCodeAndEnabledTrueAndDeletedFalse(questionCode);
+        return answerRepository.findByQuestionAndCorrectTrueAndDeletedFalse(question);
+    }
+
+    @Override
     public void existAlreadyAnswerByContentByQuestion(String aContent, Question question) throws DuplicateAnswerContentException {
         boolean existByContent = answerRepository
                 .existsByAnswerContentAndQuestion(aContent, question);
@@ -131,10 +187,53 @@ public class AnswerServiceImpl implements AnswerService {
     }
 
     // ============================ UPDATE =================================
+    @Override
+    public Answer updateAnswer(
+            String answerCode,
+            AnswerUpdateRequest answerUpdateRequest)
+            throws AnswerNotFoundException, DuplicateAnswerContentException, QuestionNotFoundException {
 
+        Answer answer = getAnswerByCodeAndEnabledTrueAndDeletedFalse(answerCode);
+        Answer answerByContent = answerRepository.findByAnswerContentAndQuestion(answerUpdateRequest.getAnswerContent(), answer.getQuestion());
+        if (answerByContent != null)
+        {
+            if (!answer.getId().equals(answerByContent.getId()))
+            {
+                throw new DuplicateAnswerContentException(String.format(
+                        AnswerConstant.DUPLICATE_ANSWER_CONTENT_IN_QUESTION_MSG,
+                        answerUpdateRequest.getAnswerContent(),
+                        answer.getQuestion().getQuestionCode()));
+            }
+        }
+        answer.setAnswerContent(answerUpdateRequest.getAnswerContent());
+        if (answerUpdateRequest.isCorrect())
+        {
+            Answer oldCorrectAnswer = getCorrectAnswerInQuestion(answer.getQuestion().getQuestionCode());
+            if (oldCorrectAnswer != null)
+            {
+                oldCorrectAnswer.setCorrect(false);
+                saveAnswer(oldCorrectAnswer);
+            }
+        }
+        answer.setCorrect(answerUpdateRequest.isCorrect());
+        return saveAnswer(answer);
+    }
+
+    @Override
+    public Answer enableDisableAnswer(String answerCode) throws AnswerNotFoundException {
+        Answer answer = getAnswerByCodeAndDeletedFalse(answerCode);
+        answer.setEnabled(!answer.isEnabled());
+        return saveAnswer(answer);
+    }
 
     // ============================= DELETE ================================
-
+    @Override
+    public void deleteAnswer(String answerCode) throws AnswerNotFoundException {
+        Answer answer = getAnswerByCodeAndEnabledTrueAndDeletedFalse(answerCode);
+        answer.setDeleted(true);
+        answer.setEnabled(false);
+        saveAnswer(answer);
+    }
 
     // ============================== SAVE ==================================
     @Override

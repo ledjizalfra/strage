@@ -25,4 +25,9 @@ public class ArgumentExceptionHandling {
     public ResponseEntity<ApiResponseCustom> emptyArgumentListException(EmptyArgumentListException exception) {
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
+
+    @ExceptionHandler(ArgumentNotInSameSubjectException.class)
+    public ResponseEntity<ApiResponseCustom> argumentNotInSameSubjectException(ArgumentNotInSameSubjectException exception) {
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
 }

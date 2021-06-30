@@ -33,4 +33,9 @@ public class QuestionExceptionHandling {
     public ResponseEntity<ApiResponseCustom> emptyQuestionListException(EmptyQuestionListException exception) {
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
+
+    @ExceptionHandler(InvalidAnswerMarkException.class)
+    public ResponseEntity<ApiResponseCustom> invalidAnswerMarkException(InvalidAnswerMarkException exception) {
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
 }

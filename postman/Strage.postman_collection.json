@@ -1,0 +1,2001 @@
+{
+	"info": {
+		"_postman_id": "80a17c39-9254-4dc0-a425-f4ef84a698ac",
+		"name": "Strage",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Role",
+			"item": []
+		},
+		{
+			"name": "Permission",
+			"item": []
+		},
+		{
+			"name": "Classroom",
+			"item": [
+				{
+					"name": "Add classroom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"annuity\": \"4\",\r\n    \"discipline\": \"PIT\",\r\n    \"section\": \"A\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/add-classroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"add-classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add many classrooms",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"classroomRequestList\": [\r\n        {\r\n            \"annuity\": \"4\",\r\n            \"discipline\": \"PIT\",\r\n            \"section\": \"B\"\r\n        },\r\n        {\r\n            \"annuity\": \"4\",\r\n            \"discipline\": \"PIT\",\r\n            \"section\": \"C\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/add-many-classrooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"add-many-classrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get classroom by name",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/get-classroom-by-name/4a pit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"get-classroom-by-name",
+								"4a pit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all classroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/get-all-classrooms",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"get-all-classrooms"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all professors in classroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/get-all-professors-in-classroom/4a pit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"get-all-professors-in-classroom",
+								"4a pit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all subjects in classroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/get-all-subjects-in-classroom/4a pit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"get-all-subjects-in-classroom",
+								"4a pit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all students in classroom",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/get-all-students-in-classroom/4a pit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"get-all-students-in-classroom",
+								"4a pit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable/disable classroom",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/enable-disable/4a pit",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"enable-disable",
+								"4a pit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add  subject in classroom",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectCode\": \"MATEMATICA-4\",\r\n    \"classroomName\": \"4A pit\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/add-subject-in-classroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"add-subject-in-classroom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add  professor in classroom",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"professorEmail\": \"professor@bunivaweb.it\",\r\n    \"classroomName\": \"4A PIT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/classrooms/add-professor-in-classroom",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"classrooms",
+								"add-professor-in-classroom"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"student1@quiz.it\",\r\n    \"password\": \"Str@ge12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Jwt-Token",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJRdWl6IEFwcGxpY2F0aW9uIFVzZXIiLCJzdWIiOiJwcm9mZXNzb3JAcXVpei5pdCIsImlzcyI6IkJ1bml2YSIsImV4cCI6MTYyNDM0NDcyNiwiaWF0IjoxNjI0MjU4MzI2LCJhdXRob3JpdGllcyI6WyJzdHVkZW50OnJlYWQiLCJzdHVkZW50OmNyZWF0ZSIsIlJPTEVfUFJPRkVTU09SIl19.VV0qmyH3olC8h22kay930vh9sB1iGXwA0CGpB_-W3W2l7YzTe-6yih6EeJmfwszWGDK7LFDA7V08Net3CqaZyQ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"student1@quiz.it\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/forgot-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reset password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Jwt-Token",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJRdWl6IEFwcGxpY2F0aW9uIFVzZXIiLCJzdWIiOiJwcm9mZXNzb3JAcXVpei5pdCIsImlzcyI6IkJ1bml2YSIsImV4cCI6MTYyNDM0NDcyNiwiaWF0IjoxNjI0MjU4MzI2LCJhdXRob3JpdGllcyI6WyJzdHVkZW50OnJlYWQiLCJzdHVkZW50OmNyZWF0ZSIsIlJPTEVfUFJPRkVTU09SIl19.VV0qmyH3olC8h22kay930vh9sB1iGXwA0CGpB_-W3W2l7YzTe-6yih6EeJmfwszWGDK7LFDA7V08Net3CqaZyQ",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"Strage@12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/password-reset/cc8bbbf6-37ca-4d6d-9a8f-a747e44e1592",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"password-reset",
+								"cc8bbbf6-37ca-4d6d-9a8f-a747e44e1592"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/get-user-by-id/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"get-user-by-id",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/get-all-users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"get-all-users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change password",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Jwt-Token",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJhdWQiOiJTdHJhZ2UgQXBwbGljYXRpb24gVXNlciIsInN1YiI6InN0dWRlbnQxQHF1aXouaXQiLCJpc3MiOiJCdW5pdmEiLCJleHAiOjE2MjQzNzI3MTMsImlhdCI6MTYyNDI4NjMxMywiYXV0aG9yaXRpZXMiOlsiUk9MRV9TVFVERU5UIl19.dkD7M5gjDshqkpaqbuMxiRaI8ZyuhPmJ2b9GZaKJe4RSklg85xSdEL7ktoavcR3q3se88-hmNJKNnpxDEvg6pA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\": \"Eq#pp3%@\",\r\n    \"newPassword\": \"Str@ge12\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/change-password",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable/disable user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/enable-disable/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"enable-disable",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/users/delete-user/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"users",
+								"delete-user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Register admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"admin@bunivaweb.it\",\r\n    \"name\": \"admin\",\r\n    \"surname\": \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.10.18:8888/admins/register-admin",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"10",
+								"18"
+							],
+							"port": "8888",
+							"path": [
+								"admins",
+								"register-admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get admin by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/admins/get-admin-by-id/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"admins",
+								"get-admin-by-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all admins",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/admins/get-all-admins",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"admins",
+								"get-all-admins"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable/Disable admin",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/admins/enable-disable/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"admins",
+								"enable-disable",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update admin personal data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"surname\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/admins/update-admin-personal-data/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"admins",
+								"update-admin-personal-data",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Professor",
+			"item": [
+				{
+					"name": "Register  professor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"professor@bunivaweb.it\",\r\n    \"name\": \"professor\",\r\n    \"surname\": \"professor\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/register-professor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"register-professor"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get professor by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/get-professor-by-id/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"get-professor-by-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all  professors",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/get-all-professors",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"get-all-professors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all subject sof professor",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/get-all-subjects-of-professor/professor@bunivaweb.it",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"get-all-subjects-of-professor",
+								"professor@bunivaweb.it"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable/Disable  professor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/enable-disable/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"enable-disable",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update professor personal data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"\",\r\n    \"surname\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/update-professor-personal-data/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"update-professor-personal-data",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Assign subject to professor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectCode\": \"MATEMATICA-4\",\r\n    \"professorEmail\": \"professor@bunivaweb.it\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/professors/assign-subject-to-professor",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"professors",
+								"assign-subject-to-professor"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Student",
+			"item": [
+				{
+					"name": "Register  student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"classroomName\": \"4A PIT\",\r\n    \"email\": \"student@bunivaweb.it\",\r\n    \"name\": \"student\",\r\n    \"surname\": \"student\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/students/register-student",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"students",
+								"register-student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register many student",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "classroomName",
+									"value": "4A PIT",
+									"type": "text"
+								},
+								{
+									"key": "csvFile",
+									"type": "file",
+									"src": "/E:/PROGRAMMATIONS/INTELIJ WORKSPACE/strage/csv_file/student_csv.csv"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/students/register-many-students-from-csvfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"students",
+								"register-many-students-from-csvfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get student by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/students/get-student-by-id/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"students",
+								"get-student-by-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all  students",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/students/get-all-students",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"students",
+								"get-all-students"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable/Disable  student",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/students/enable-disable/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"students",
+								"enable-disable",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update student personal data",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"student\",\r\n    \"surname\": \"student\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/students/update-student-personal-data/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"students",
+								"update-student-personal-data",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Mail",
+			"item": [
+				{
+					"name": "Send credentials mail",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8888/mails/send-credentials/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"mails",
+								"send-credentials",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subject",
+			"item": [
+				{
+					"name": "Add Subject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectName\": \"Matematica\",\r\n    \"annuity\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/subjects/add-subject",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"subjects",
+								"add-subject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get subject by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/subjects/get-subject-by-id/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"subjects",
+								"get-subject-by-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all subjects",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/subjects/get-all-subjects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"subjects",
+								"get-all-subjects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable disable Subject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/subjects/enable-disable/MATEMATICA-4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"subjects",
+								"enable-disable",
+								"MATEMATICA-4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Subject",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/subjects/delete-subject/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"subjects",
+								"delete-subject",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Argument",
+			"item": [
+				{
+					"name": "Add Argument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subjectCode\": \"Matematica-4\",\r\n    \"argumentName\": \"numeri complessi\",\r\n    \"annuity\": \"4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/arguments/add-argument",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"arguments",
+								"add-argument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get argument by id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/arguments/get-argument-by-id/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"arguments",
+								"get-argument-by-id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all arguments",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/arguments/get-all-arguments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"arguments",
+								"get-all-arguments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable disable Argument",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/arguments/enable-disable/LE FUNZIONI-4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"arguments",
+								"enable-disable",
+								"LE FUNZIONI-4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete Argument",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/arguments/delete-argument/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"arguments",
+								"delete-argument",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Question",
+			"item": [
+				{
+					"name": "add Question by argument",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"argumentCode\": \"LE FUNZIONI-4\",\r\n    \"questionContent\": \"Question one for argument: funzioni\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/add-question-by-argument",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"add-question-by-argument"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question by code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/get-question-by-code/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"get-question-by-code",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Question with all answers by code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/get-question-with-all-answers-by-code/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"get-question-with-all-answers-by-code",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Questions by argument",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/get-all-questions-by-argument/LE FUNZIONI-4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"get-all-questions-by-argument",
+								"LE FUNZIONI-4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all Questions by subject",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/get-all-questions-by-subject/MATEMATICA-4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"get-all-questions-by-subject",
+								"MATEMATICA-4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Question content",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"questionContent\": \"Question one for argument: funzioni- updated\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/update-question-content/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"update-question-content",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update answer mark in question",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"correctAnswerMark\": 2.00,\r\n    \"incorrectAnswerMark\": -2.00\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/update-answer-mark/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"update-answer-mark",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update question argument",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"argumentCode\": \"NUMERI COMPLESSI-4\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/update-question-argument/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"update-question-argument",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete question",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/questions/delete-question/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"questions",
+								"delete-question",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Answer",
+			"item": [
+				{
+					"name": "Add answerin question",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"normalAnswer\": false,\r\n    \"defaultAnswer\": false,\r\n    \"noWantToAnswer\": true,\r\n\r\n    \"questionCode\": \"Q-00583\",\r\n    \"answerContent\": \"non voglio rispondere perchè sono ignorante e ho paura di ridurre il mio già misero punteggio\",\r\n    \"correct\": true\r\n}\r\n\r\n/*\r\n{\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di prelevare dalla memoria più dati in parallelo\",\r\n    \"correct\": false\r\n}\r\n{\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di prelevare dalla memoria più dati in seriale\",\r\n    \"correct\": false\r\n}\r\n{\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di scrivere nei registri più dati in parallelo\",\r\n    \"correct\": false\r\n}\r\n\r\n/*\r\nDEFAULT ANSWER\r\n{\r\n    \"normalAnswer\": false,\r\n    \"defaultAnswer\": true,\r\n    \"noWantToAnswer\": false,\r\n\r\n    \"questionCode\": \"\",\r\n    \"answerContent\": \"nessuna delle precedenti\",\r\n    \"correct\": false\r\n}\r\n\r\n\r\nNO WANT ANSWER\r\n{\r\n    \"normalAnswer\": false,\r\n    \"defaultAnswer\": false,\r\n    \"noWantToAnswer\": true,\r\n\r\n    \"questionCode\": \"\",\r\n    \"answerContent\": \"non voglio rispondere perchè sono ignorante e ho paura di ridurre il mio già misero punteggio\",\r\n    \"correct\": false\r\n}\r\n\r\n\r\n\r\n\r\n\r\n{\r\n    \"normalAnswer\": true,\r\n    \"defaultAnswer\": false,\r\n    \"noWantToAnswer\": false,\r\n\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di scrivere nei registri più dati in seriale\",\r\n    \"correct\": false\r\n}\r\n\r\n\r\n{\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di prelevare dalla memoria più dati in parallelo\",\r\n    \"correct\": false\r\n}\r\n{\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di prelevare dalla memoria più dati in seriale\",\r\n    \"correct\": false\r\n}\r\n{\r\n    \"questionCode\": \"Q-9765\",\r\n    \"answerContent\": \"consente di scrivere nei registri più dati in parallelo\",\r\n    \"correct\": false\r\n}\r\n\r\n*/",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/answers/add-answer-in-question",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"answers",
+								"add-answer-in-question"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get answer by code",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/answers/get-answer-by-code/A-00583-36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"answers",
+								"get-answer-by-code",
+								"A-00583-36"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all answers by question",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/answers/get-all-answers-by-question/Q-00583",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"answers",
+								"get-all-answers-by-question",
+								"Q-00583"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update answer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"answerContent\": \"answer with code A-00583-36 is updated.\",\r\n    \"correct\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/answers/update-answer/A-00583-36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"answers",
+								"update-answer",
+								"A-00583-36"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enable disable answer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/answers/enable-disable/A-00583-36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"answers",
+								"enable-disable",
+								"A-00583-36"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete answer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8888/answers/delete-answer/A-00583-36",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8888",
+							"path": [
+								"answers",
+								"delete-answer",
+								"A-00583-36"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

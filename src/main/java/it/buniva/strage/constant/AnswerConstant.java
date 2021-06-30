@@ -1,5 +1,7 @@
 package it.buniva.strage.constant;
 
+import java.util.Locale;
+
 public class AnswerConstant {
 
     // OTHER ANSWER CODE
@@ -30,4 +32,7 @@ public class AnswerConstant {
     public static final String DEFAULT_ANSWER_ALREADY_EXIST_MSG = "The default answer already exist.";
 
     public static final String NO_WANT_ANSWER_ALREADY_EXIST_MSG = "The no want to answer already exist";
+
+    public static final String DUPLICATE_ANSWER_CONTENT_IN_QUESTION_MSG =
+            "Answer with content: [%s] already exist for the question with code: [%s].";
 }

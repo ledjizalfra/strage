@@ -1,9 +1,6 @@
 package it.buniva.strage.payload.response;
 
-import it.buniva.strage.constant.AnswerConstant;
 import it.buniva.strage.entity.Answer;
-import it.buniva.strage.entity.Argument;
-import it.buniva.strage.entity.Question;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,7 +31,6 @@ public class AnswerResponse {
         if(answer.getQuestion()!=null && !answer.isDefaultAnswer() && !answer.isNoWantAnswerItem()) {
             questionCode = answer.getQuestion().getQuestionCode();
         }
-
 
         return new AnswerResponse(
                 questionCode,
