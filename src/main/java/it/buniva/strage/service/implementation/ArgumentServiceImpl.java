@@ -93,9 +93,11 @@ public class ArgumentServiceImpl implements ArgumentService {
     }
 
     @Override
-    public List<Argument> getAllArgumentsBySubjectAndEnabledTrueAndDeletedFalse(String subjectCode) throws EmptyArgumentListException
-    {
-        List<Argument> argumentList = argumentRepository.findAllBySubjectAndEnabledTrueAndDeletedFalse(subjectCode);
+    public List<Argument> getAllArgumentsBySubjectAndEnabledTrueAndDeletedFalse(String subjectCode) throws EmptyArgumentListException, SubjectNotFoundException {
+
+        Subject subject = subjectService.getSubjectBySubjectCodeAndEnabledTrueAndDeletedFalse(subjectCode);
+
+        List<Argument> argumentList = argumentRepository.findAllBySubjectAndEnabledTrueAndDeletedFalse(subject);
         if (argumentList.isEmpty())
         {
             throw new EmptyArgumentListException(ArgumentConstant.EMPTY_ARGUMENT_LIST_MSG);

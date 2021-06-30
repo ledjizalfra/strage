@@ -256,6 +256,9 @@ public class QuestionServiceImpl implements QuestionService {
         question.setQuestionContent(questionRequest.getQuestionContent());
         question.setArgument(argument);
 
+        question.setEnabled(true);
+        question.setDeleted(false);
+
         return saveQuestion(question);
     }
 

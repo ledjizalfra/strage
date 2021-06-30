@@ -21,4 +21,9 @@ public class ClassroomExceptionHandling {
         return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
     }
 
+    @ExceptionHandler(EmptyClassroomListException.class)
+    public ResponseEntity<ApiResponseCustom> emptyClassroomListException(EmptyClassroomListException exception) {
+        return createHttpResponse(HttpStatus.BAD_REQUEST, exception.getMessage());
+    }
+
 }

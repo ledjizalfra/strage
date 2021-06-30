@@ -68,7 +68,13 @@ public enum PermissionName {
     ANSWER_CREATE("answer:create"),
     ANSWER_READ("answer:read"),
     ANSWER_UPDATE("answer:update"),
-    ANSWER_DELETE("answer:delete");
+    ANSWER_DELETE("answer:delete"),
+
+    //CONFIGURATION
+    CONFIGURATION_CREATE("configuration:create"),
+    CONFIGURATION_READ("configuration:read"),
+    CONFIGURATION_UPDATE("configuration:update"),
+    CONFIGURATION_DELETE("configuration:delete");
 
     private final String permission;
 

@@ -1,6 +1,7 @@
 package it.buniva.strage.service;
 
 import it.buniva.strage.entity.Argument;
+import it.buniva.strage.entity.Subject;
 import it.buniva.strage.exception.argument.ArgumentNotFoundException;
 import it.buniva.strage.exception.argument.DuplicateArgumentCodeException;
 import it.buniva.strage.exception.argument.EmptyArgumentListException;
@@ -24,7 +25,7 @@ public interface ArgumentService {
 
     Argument getArgumentByIdAndEnabledTrueAndDeletedFalse(Long argumentId) throws ArgumentNotFoundException;
 
-    List<Argument> getAllArgumentsBySubjectAndEnabledTrueAndDeletedFalse(String subjectCode) throws EmptyArgumentListException;
+    List<Argument> getAllArgumentsBySubjectAndEnabledTrueAndDeletedFalse(String subjectCode) throws EmptyArgumentListException, SubjectNotFoundException;
 
     List<Argument> getAllArguments() throws EmptyArgumentListException;
 

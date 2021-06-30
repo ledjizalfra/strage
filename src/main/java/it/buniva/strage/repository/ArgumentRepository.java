@@ -1,6 +1,7 @@
 package it.buniva.strage.repository;
 
 import it.buniva.strage.entity.Argument;
+import it.buniva.strage.entity.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,7 +19,7 @@ public interface ArgumentRepository extends JpaRepository<Argument, Long> {
 
     Argument findByArgumentCodeAndDeletedFalse(String argumentCode);
 
-    List<Argument> findAllBySubjectAndEnabledTrueAndDeletedFalse(String subjectCode);
+    List<Argument> findAllBySubjectAndEnabledTrueAndDeletedFalse(Subject subject);
 
     List<Argument> findAllByEnabledTrueAndDeletedFalse();
 

@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/arguments")
@@ -70,6 +71,23 @@ public class ArgumentController extends ArgumentExceptionHandling {
         for (Argument argument : argumentList) {
             argumentsResponseList.add(ArgumentResponse.createFromArgument(argument));
         }
+
+        return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 200,
+                HttpStatus.OK, "", argumentsResponseList, request.getRequestURI()),
+                HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/get-all-arguments-by-subject/{argumentCode}")
+//    @PreAuthorize("hasAuthority('argument:read')")
+    public ResponseEntity<ApiResponseCustom> getAllArgumentsBySubject(
+            @PathVariable("argumentCode") String argumentCode,
+            HttpServletRequest request) throws EmptyArgumentListException, SubjectNotFoundException {
+
+        List<Argument> argumentList = argumentService.getAllArgumentsBySubjectAndEnabledTrueAndDeletedFalse(argumentCode);
+
+        List<ArgumentResponse> argumentsResponseList = argumentList.stream()
+                .map(ArgumentResponse::createFromArgument)
+                .collect(Collectors.toList());
 
         return new ResponseEntity<>(new ApiResponseCustom(Instant.now(), 200,
                 HttpStatus.OK, "", argumentsResponseList, request.getRequestURI()),
