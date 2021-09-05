@@ -14,7 +14,7 @@ public class QuestionConstant {
 
     public static final String DUPLICATE_QUESTION_CODE_MSG = "Question name: [%s] already exist.";
 
-    public static final String DUPLICATE_QUESTION_CONTENT_IN_ARGUMENT_MSG =
+    public static final String DUPLICATE_QUESTION_CONTENT_IN_SUBJECT_MSG =
             "Question with content: [%s] already exist for the argument with code: [%s].";
 
     public static final String ARGUMENT_NOT_IN_SAME_SUBJECT_MSG =

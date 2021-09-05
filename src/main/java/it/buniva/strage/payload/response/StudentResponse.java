@@ -15,6 +15,8 @@ import java.util.Date;
 @AllArgsConstructor
 public class StudentResponse {
 
+    private String classroomName;
+
     private Long studentId;
 
     private PersonalData personalData;
@@ -31,6 +33,7 @@ public class StudentResponse {
 
     public static StudentResponse createFromStudent(Student student) {
         return new StudentResponse(
+                student.getClassroom().getClassroomName(),
                 student.getId(),
                 student.getPersonalData(),
                 student.isEnabled(),

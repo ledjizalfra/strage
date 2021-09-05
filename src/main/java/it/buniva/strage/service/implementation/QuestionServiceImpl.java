@@ -53,7 +53,7 @@ public class QuestionServiceImpl implements QuestionService {
 
         // Control if the question exist by content
         // throw exception if not exist
-        existAlreadyQuestionByContentInArgument(questionRequest.getQuestionContent(),argument);
+        existAlreadyQuestionByContentInSubject(questionRequest.getQuestionContent(), argument.getSubject());
 
         return  createNewQuestion(questionRequest,argument);
     }
@@ -127,15 +127,15 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void existAlreadyQuestionByContentInArgument(String questionContent, Argument argument) throws DuplicateQuestionContentException {
+    public void existAlreadyQuestionByContentInSubject(String questionContent, Subject subject) throws DuplicateQuestionContentException {
 
-        boolean existsQuestion = questionRepository.existsByQuestionContentAndArgument(questionContent, argument);
+        boolean existsQuestion = questionRepository.existsByQuestionContentAndArgumentSubject(questionContent, subject);
         if(existsQuestion) {
             throw new DuplicateQuestionContentException(
                     String.format(
-                            QuestionConstant.DUPLICATE_QUESTION_CONTENT_IN_ARGUMENT_MSG,
+                            QuestionConstant.DUPLICATE_QUESTION_CONTENT_IN_SUBJECT_MSG,
                             questionContent,
-                            argument.getArgumentCode())
+                            subject.getSubjectCode())
             );
         }
     }
@@ -159,7 +159,7 @@ public class QuestionServiceImpl implements QuestionService {
         if (questionByContent != null) {
             if (!question.getId().equals(questionByContent.getId())) {
                 throw new DuplicateQuestionContentException(String.format(
-                        QuestionConstant.DUPLICATE_QUESTION_CONTENT_IN_ARGUMENT_MSG,
+                        QuestionConstant.DUPLICATE_QUESTION_CONTENT_IN_SUBJECT_MSG,
                         questionContentRequest.getQuestionContent(),
                         question.getArgument().getArgumentCode()));
             }
@@ -211,7 +211,7 @@ public class QuestionServiceImpl implements QuestionService {
         }
 
         try {
-            existAlreadyQuestionByContentInArgument(question.getQuestionContent(), newArgument);
+            existAlreadyQuestionByContentInSubject(question.getQuestionContent(), newArgument.getSubject());
         } catch (DuplicateQuestionContentException e) {
            return question;
         }

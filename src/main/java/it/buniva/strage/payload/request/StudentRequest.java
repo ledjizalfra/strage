@@ -25,7 +25,7 @@ public class StudentRequest {
 
     /*@NotBlank
     @Size(min=8, max=100)*/
-    private String password = StringUtils.EMPTY;
+    //private String password = StringUtils.EMPTY;
 
     @NotBlank
     @Size(max=100)
@@ -38,12 +38,12 @@ public class StudentRequest {
 
     public StudentRequest(
             String email,
-            String password,
+            //String password,
             String name,
             String surname) {
 
         this.email = email;
-        this.password = "";
+        //this.password = "";
         this.name = name;
         this.surname = surname;
     }
@@ -54,7 +54,7 @@ public class StudentRequest {
 
         return new StudentRequest(
                 studentCSV.getEmail(),
-                StringUtils.EMPTY,
+                //StringUtils.EMPTY,
                 studentCSV.getName(),
                 studentCSV.getSurname()
         );

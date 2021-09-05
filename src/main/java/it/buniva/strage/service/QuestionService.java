@@ -2,6 +2,7 @@ package it.buniva.strage.service;
 
 import it.buniva.strage.entity.Argument;
 import it.buniva.strage.entity.Question;
+import it.buniva.strage.entity.Subject;
 import it.buniva.strage.exception.argument.ArgumentNotFoundException;
 import it.buniva.strage.exception.argument.ArgumentNotInSameSubjectException;
 import it.buniva.strage.exception.question.DuplicateQuestionContentException;
@@ -34,7 +35,7 @@ public interface QuestionService {
 
     List<Question> getAllQuestionBySubject(String subjectCode) throws EmptyQuestionListException, SubjectNotFoundException;
 
-    void existAlreadyQuestionByContentInArgument(String questionContent, Argument argument) throws DuplicateQuestionContentException;
+    void existAlreadyQuestionByContentInSubject(String questionContent, Subject subject) throws DuplicateQuestionContentException;
 
     boolean existsQuestionByCode(String questionCode);
 

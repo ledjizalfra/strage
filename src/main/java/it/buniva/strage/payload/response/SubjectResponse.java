@@ -11,6 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SubjectResponse {
 
+    private Long subjectId;
+
     private String subjectCode;
 
     private String subjectName;
@@ -20,6 +22,7 @@ public class SubjectResponse {
     public static SubjectResponse createFromSubject(Subject subject) {
 
         return new SubjectResponse(
+                subject.getId(),
                 subject.getSubjectCode(),
                 subject.getSubjectName(),
                 subject.isEnabled()

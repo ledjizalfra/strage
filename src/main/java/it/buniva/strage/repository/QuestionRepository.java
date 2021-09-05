@@ -14,7 +14,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 
     boolean existsByQuestionCode(String questionCode);
 
-    boolean existsByQuestionContentAndArgument(String questionContent, Argument argument);
+    boolean existsByQuestionContentAndArgumentSubject(String questionContent, Subject subject);
 
     Question findByQuestionCodeAndEnabledTrueAndDeletedFalse(String questionCode);
 
